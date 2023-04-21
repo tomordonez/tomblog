@@ -1,0 +1,78 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "minima";
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.post-title {
+	line-height: 1.2;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+}
+
+.highlight {
+	margin: 30px 0px;
+}
+
+img {
+	margin: 30px 0px;
+	filter: drop-shadow(8px 8px 6px grey);
+}
+
+ul, ol {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+li > ul, li > ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.post-content h2 {
+	padding-top: 10px;
+}
+
+.post-content h3 {
+	padding-top: 5px;
+}
+
+.tags li {
+	list-style: none;
+}
+
+.search input {
+    height: 30px;
+    width: 60%;
+    padding-left: 10px;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.pagination {
+	display: flex;
+}
+.previous, a.previous {
+	flex: 1;
+}
+.page_number {
+	flex: 1;
+}
+next, a.next {
+	flex: 1;
+}
+
+details {
+	padding-bottom: 20px;
+	color: grey;
+}
+
+@media screen and (max-width: 800px) {
+	.post-title {
+		line-height: 1.2;
+	}
+}
