@@ -29,7 +29,16 @@ This is a sample of one of the files with a sea of rows:
 
 ![Data Sources and Seas of Rows](/assets/images/data-source-sea-of-rows.png)
 
+***
+
 ## Create an Azure Data factory
+
+**Create a GitHub repo**
+
+* Go to GitHub and create a repo.
+* Set to private. Initialize with a Readme
+
+**Create an Azure Data Factory**
 
 * In the Azure portal
 * Create a resource
@@ -38,6 +47,37 @@ This is a sample of one of the files with a sea of rows:
 * Enter a `name`, a `region` and keep the `version` as `V2`
 * In `Git configuration` keep the default `Configure Git later`
 * Go to `Review and Create` and `Create`
+
+**Add the GitHub repo to Data Factory**
+
+In Data Factory, add the repo:
+
+* In the Manage interface, Source Control, `Git configuration`
+
+![Azure Data Factory Git Repository](/assets/images/azure-data-factory-git-repository.png)
+
+Select a GitHub repo:
+
+* Enter the `GitHub repository owner` (your GitHub username)
+* Authorize AzureDataFactory to access GitHub
+* Select the repository you created
+* Use the `Collaboration branch` as `main`
+* Leave the default `Publish branch` as `adf_publish`
+* Leave the default `Root folder`
+* Check `Import existing resources to repository`
+* Leave the default `Import resources into this branch` and select `main`
+* Go to the GitHub repo and refresh to see updates
+
+**Work in a branch**
+
+In Data Factory, top left, a `main branch` will show up.
+
+* On this drop down, click `New branch`
+* Enter a branch name
+* Do some work and click `Save all`. This will save the changes to the branch. And you can verify this in GitHub repo.
+* Create a PR from the Data Factory or from GitHub
+
+***
 
 ## Review the CSV files to build a schema
 
@@ -53,6 +93,8 @@ I decided to use these columns. The insights could be to find the number of DBE 
 
     CompanyName, DBAName, Address, City, State, Zip, Website, Agency, CertificationType, Capability, County
 
+***
+
 ## Upload the data to the storage container
 
 I created a container named `dbeapp` with two directories:
@@ -61,6 +103,8 @@ I created a container named `dbeapp` with two directories:
 * `outputJoinedCSV`: I will use this after joining all files.
 
 How to create a storage account with a container. Example in [Azure Analysis Services](../deploy-powerbi-model-azure-analysis-services/)
+
+***
 
 ## Connect to the SQL Server Database
 
@@ -101,74 +145,44 @@ Open the `Tables` to verify that the query ran correctly. I can see the columns 
 
 ![Database in SQL Server](/assets/images/sql-server-database.png)
 
-## Data Factory Workflow
+***
+
+## Data Factory Components
 
 We have to process the CSV files before combining them, since some files have different column names and number of columns.
 
-1. Create a Git repo
-2. Create a `Pipeline`
-3. Create a `Linked Service` for the Blob container
-4. Create a `Dataset` to join the output of the Data Flow
-5. Create a `Data Flow` to process each CSV file
-6. Create a `Dataset` for PowerQuery processing
-7. Create a `Linked Service` for SQL Server
-8. Create a `Dataset` for SQL Server
-9. Create a `Copy Activity` from the PowerQuery output to SQL Server
-10. Verify in `SQL Server` that the data was copied
+**Create a Pipeline**
+
+* Create a Pipeline for the project
+ 
+**Create Linked Services**
+
+These connect ADF to different services:
+
+* For the Blob container
+* For SQL Server
+
+**Create Datasets**
+
+A dataset is a view that points to the data at a service.
+
+* 1 to join the output of the Data Flow
+* 1 for PowerQuery output
+* 1 for SQL Server
+
+**Create a Data Flow**
+
+* Create a Data Flow to process each CSV file
+
+**Create a Copy Activity**
+
+* A Copy Activity from PowerQuery output to SQL Server
 
 There is a Youtube tutorial about some of the above workflow [here](https://www.youtube.com/watch?v=EpDkxTHAhOs)
 
-## 1. Create a Git Repository
+***
 
-**Launch Azure Data Factory**
-
-* Go to Azure Portal
-* Go to Data Factory
-* Launch Studio
-
-Anything that you do in the Data Factory uses the instance (after launching Studio). Nothing is saved, unless all validations are passed and you select `Publish`.
-
-If you want to avoid getting a heart attack because you closed the instance by accident or your computer crashed. Then it's recommended to create a Git repository. As crazy as it sounds the Data Factory doesn't have a `Save` feature to save your work as you build your pipeline (unless you configure a Git repo)
-
-More about Data Factory Source Control in the Microsoft docs [here](https://learn.microsoft.com/en-us/azure/data-factory/source-control). You can only have 1 data factory under 1 repo.
-
-**Create a GitHub repo**
-
-* Go to GitHub and create a repo.
-* Set to private. Initialize with a Readme
-
-![Azure Data Factory Git Repository](/assets/images/azure-data-factory-git-repository.png)
-
-**Add the GitHub repo to Data Factory**
-
-In Data Factory, add the repo using one of these:
-
-* On the Home interface, select `Set up code repository`.
-* In the Author (edit/pencil) interface, at the top left, under `Data Factory`
-* In the Manage interface, Source Control, `Git configuration`
-
-Select a GitHub repo (from one of the steps above)
-
-* Enter the `GitHub repository owner` (your GitHub username)
-* Authorize AzureDataFactory to access GitHub
-* Select the repository you created
-* Use the `Collaboration branch` as `main`
-* Leave the default `Publish branch` as `adf_publish`
-* Leave the default `Root folder`
-* Check `Import existing resources to repository`
-* Leave the default `Import resources into this branch` and select `main`
-* Go to the GitHub repo and refresh to see updates
-
-**Work in a branch**
-
-In Data Factory, top left, a `main branch` will show up.
-
-* On this drop down, click `New branch`
-* Enter a branch name
-* Do some work and click `Save all`. This will save the changes to the branch. And you can verify this in GitHub repo.
-* Create a PR from the Data Factory or from GitHub
-
-## 2. Create a Pipeline in Data Factory
+## Create a Pipeline in Data Factory
 
 * On the left menu, go to the Author/Edit interface.
 * Under `Pipeline`, select `New Pipeline`
@@ -177,7 +191,9 @@ In Data Factory, top left, a `main branch` will show up.
 
 ![Azure Data Factory Pipeline](/assets/images/azure-data-factory-pipeline-resource.png)
 
-## 3. Create a Linked Service for the Blob container
+## Create Linked Services
+
+### Create a Linked Service for the Blob container
 
 In Data Factory:
 
@@ -194,7 +210,22 @@ In Data Factory:
 
 ![Azure Data Factory Linked Services InputBlob](/assets/images/azure-data-factory-linked-services-inputblob.png)
 
-## 4. Create a Dataset to join the output of the Data Flow
+### Create a Linked Service for SQL Server
+
+* On the left menu, go to the `Manage` interface
+* Click on `Create linked service`
+* Search for `Azure SQL Database`
+* Name: `OutputSQL`
+* Connect using `From Azure subscription` and select your subscription, server name, and database.
+* For `Authentication Type` select `SQL Authentication` (this has to be set when the server/db was created)
+* Then `Test connection` and `Create`
+* `Save all` to commit to the repository
+
+***
+
+## Create Datasets
+
+### Create a Dataset to join the output of the Data Flow
 
 We need to transform the CSV files from the Azure Blob, clean the data, and join them to a dataset. The input files are in the container (and directory) `dbeapp/inputCSV/`. The output container is `dbeapp/outputJoinedCSV/`.
 
@@ -204,15 +235,42 @@ We need to transform the CSV files from the Azure Blob, clean the data, and join
 * Select format `Delimited Text`
 * Enter a name for example `OutputDataflowCSV`
 * Select a linked service. The one you created above `InputBlob`
-* Find the directory in `File path` by clicking on `Browse` (only select the container/directory)
+* Enter the file path with a file name `dbeapp/outputJoinedCSV/dbe-joined.csv`
 * Select `First row as header`
-* Import schema, change to `None` (since there isn't a file there yet)
-* A new dataset is created
+* Import schema `From connection`
 * `Save all` to commit to the repository
 
 ![Azure Data Factory Datasets](/assets/images/azure-data-factory-datasets.png)
 
-## 5. Create a Data Flow to process each CSV file
+### Using an input Dataset for PowerQuery processing
+
+We will use this file `dbeapp/outputJoinedCSV/dbe-joined.csv` as the input dataset for PowerQuery.
+
+### Create a dataset for the PowerQuery result
+
+* In Data Factory, Author interface, click on Datasets
+* Create new dataset, Azure Blob Storage, DelimitedText
+* Rename to `OutputPowerQueryCSV`
+* Select `Linked Service` as `InputBlob`
+* Enter the file path with a file name `dbeapp/outputJoinedCSV/outputPowerQuery.csv`
+* Check `First row as header`
+* Import schema `From connection`
+* `Save all` to commit to the repository
+
+### Create a Dataset for the output SQL Server
+
+* Go to the Author/Edit interface
+* Create a dataset
+* Select `Azure SQL Database`
+* Enter a name. For my example `OutputSQLTable`
+* Select the linked service `OutputSQL`
+* In `Table`, select the table that was created above, in my case `dbo.Directory`
+* Import schema, leave default `From connection/store`
+* `Save all` to commit to the repository
+
+***
+
+## Create a Data Flow to process each CSV file
 
 There are two transformation features in Azure Data Factory. Which one to use depends on the data source.
 
@@ -221,7 +279,7 @@ There are two transformation features in Azure Data Factory. Which one to use de
 
 Since all the files are CSVs in the Azure Blob container. We are using Data Flow.
 
-This is what the final Data Flow looks like, all the way zoomed out:
+This is what the final Data Flow looks like:
 
 ![Azure Data Factory Data Flow Zoomed Out](/assets/images/azure-data-factory-dataflow.png)
 
@@ -240,9 +298,16 @@ This is what the final Data Flow looks like, all the way zoomed out:
 2. Add a transformation for each source
 3. Joined the transformed output to the dataset created above `OutputDataflowCSV`
 
+Optimization:
+
+* Instead of creating a source for every CSV file.
+* An optimization strategy could be to group CSV files with a common format in a Blob container
+* In DataFlow create a parameterized component that gets a list of CSV names from this container
+* Then create another component that loops through each of these files.
+
 **Build the Data Flow in Debug Mode**
 
-* This will allow you to preview the data as you transform the data
+* This will allow you to preview the data as you transform it.
 * However, it creates a Spark cluster for the period you specify (when enabling `Debug`)
 * They will charge you for the time the cluster is running.
 * Stop debug mode when done transforming the data.
@@ -265,10 +330,12 @@ Final result of the Data Flow, zoomed in:
   * Sampling set to `Disable`
     * Don't confuse this with debugging, which displays a number of rows to preview
     * If Enabled, this will filter the dataset to the specified number of rows.
+    * In other words, if your CSV file has 1M rows and you sample it to 10 rows. The output will contain 10 rows.
     * As the legend says. Enable this for debugging and testing.
     * But it doesn't clarify to disable once you are done debugging.
 * `Options` tab
   * Select the `File path` using `Browse`
+  * For this source `TexasCSV`. My file path was `dbeapp/inputCSV/texas-dbe.csv`
   * Select `First row as header`
 * `Save all` to commit to the repository
 
@@ -286,6 +353,10 @@ Final result of the Data Flow, zoomed in:
 Final result of the Data Flow, a closer look:
 
 ![Azure Data Factory Data Flow Zoom more](/assets/images/azure-data-factory-data-flow-zoom2.png)
+
+**Schema Evolution and Schema Drift**
+
+If the schema at the source is most likely to change then in the dataset `Schema` settings, don't import the schema. When setting up a workflow in a Data Flow, select the setting `Allow schema drift` and set the mapping to `Auto mapping`.
 
 **Data Transformation: RenameColumns**
 
@@ -338,18 +409,18 @@ On the `RenameColumns` (Select card):
 
 Use `Union`:
 * If different sources have the same columns and you want to row-wise append one to another
-* Like an outer join without the need of a common column
+* The same as SQL Union
 
 Use `Join`:
 * If you want to join two sources by a common column
-* Then you have options: outer, inner, left.
+* The same as SQL Join
 
 Use the tab `Inspect`
 * Use this preview to verify that the columns across all `Union` or `Join` match
 
 **Columns in different sources don't match**
 
-What I realized from my CSV files was that those that used the same platform (they had the same columns), when exported them to CSV and previewing the columns, some had more/fewer columns.  I couldn't do a `Union` at the source.
+What I realized from my CSV files was that those that used the same platform (they had the same columns), when exported them to CSV and previewing the columns, some had more/fewer columns. I couldn't do a `Union` at the source.
 
 * For each source, add the source and map drift the schema
 * In Map Drifted, remove the columns to exclude
@@ -390,18 +461,9 @@ What I realized from my CSV files was that those that used the same platform (th
 * About `36,000` rows (companies)
 * Size `6MB`
 
-## 6. Create an input Dataset for PowerQuery processing
+***
 
-* Go back to the Author/Edit interface
-* Under `Datasets` click on `Add Dataset`
-* Select `Azure Blob Storage`
-* Select format `Delimited Text`
-* Enter a name for example `InputPowerQueryCSV`
-* Select a linked service `InputBlob`
-* Find the file in `File path`. In my case the file was `dbe-joined.csv`
-* Select `First row as header`
-* Import schema, leave default
-* `Save all` to commit to the repository
+## Create a PowerQuery resource
 
 **Modify the dataset with PowerQuery**
 
@@ -417,7 +479,7 @@ When creating the table in SQL Server, I assumed a limit of characters for each 
 
 **Why use PowerQuery now?**
 
-Later when you try to move the dataset from Data Studio to SQL Server. It might not work and throw an error that the data is being truncated.
+Later when you execute the Copy Activity to SQL Server. It might not work and throw an error that the data is being truncated.
 
 * We could modify the dataset to match the data type lengths and/or
 * Clean the dataset and modify the data type lengths in SQL Server
@@ -426,10 +488,10 @@ Later when you try to move the dataset from Data Studio to SQL Server. It might 
 
 **Create a PowerQuery resource**
 
-* In Data Factory, Author interface, Factory Resourcers
+* In Data Factory, Author interface, Factory Resources
 * Go to Power Query, create `New power query`
 * Rename it, for example `CleanCSV`
-* Select a dataset, `InputPowerQueryCSV`
+* Select a dataset, `OutputDataflowCSV`
 * PowerQuery opens as an iframe
 * `Save all` to commit to the repository
 
@@ -465,17 +527,6 @@ Go to the SQL Server Table, then Query Editor. Recreated the table to map the ma
     );
     GO
 
-**Create a dataset for the PowerQuery result**
-
-* In Data Factory, Author interface, click on Datasets
-* Create new dataset, Azure Blob Storage, DelimitedText
-* Rename to `OutputPowerQueryCSV`
-* Select `Linked Service` as `InputBlob`
-* Enter the file path with a file name `outputPowerQuery.csv`
-* Check `First row as header`
-* Import schema `From connection`
-* `Save all` to commit to the repository
-
 **Add PowerQuery to the Pipeline**
 
 * In Data Factory, Author interface, click on the Pipeline
@@ -491,7 +542,10 @@ Go to the SQL Server Table, then Query Editor. Recreated the table to map the ma
     * On the same row, click on the `Settings` icon
     * `Settings` tab, file name option `Output to single file` and enter the file name `outputPowerQuery.csv`
     * `Optimize` tab, select `Single partition`
-* Click on the Data Flow component
+
+**Connect Data flow to Power Query**
+
+* Click on the `Data Flow` component
 * On the small right-arrow, drag/drop this arrow to the Power Query component
 * This means on Data Flow completion, do the next step Power Query.
 * `Save all` to commit to the repository
@@ -505,29 +559,7 @@ Go to the SQL Server Table, then Query Editor. Recreated the table to map the ma
 * Add it again
 * Reload the steps
 
-## 7. Create a Linked Service for SQL Server
-
-* On the left menu, go to the `Manage` interface
-* Click on `Create linked service`
-* Search for `Azure SQL Database`
-* Name: `OutputSQL`
-* Connect using `From Azure subscription` and select your subscription, server name, and database.
-* For `Authentication Type` select `SQL Authentication` (this has to be set when the server/db was created)
-* Then `Test connection` and `Create`
-* `Save all` to commit to the repository
-
-## 8. Create a Dataset for the output SQL Server
-
-* Go to the Author/Edit interface
-* Create a dataset
-* Select `Azure SQL Database`
-* Enter a name. For my example `OutputSQLTable`
-* Select the linked service `OutputSQL`
-* In `Table`, select the table that was created above, in my case `dbo.Directory`
-* Import schema, leave default `From connection/store`
-* `Save all` to commit to the repository
-
-## 9. Create a Copy Activity from PowerQuery output to SQL Server
+## Create a Copy Activity from PowerQuery output to SQL Server
 
 * Go to the Author/Edit interface
 * Go to the Pipeline
@@ -574,7 +606,7 @@ The error means that the output will truncate the input because the data types d
 
 When done debugging, turn it off, or they will keep charging you. `Save all` to commit to the repository
 
-## 10. Verify the data copied from Input Blob To SQL Server
+## Verify the data copied from Input Blob To SQL Server
 
 * Go to SQL Server database
 * Query editor
