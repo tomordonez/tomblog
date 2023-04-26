@@ -34,7 +34,7 @@ Changing the instance to A3 with 7GB gives `$17.44/month`
 
 However, when creating a VM below, there aren't `A` instances. The lowest letter is `B`.
  
-## Create a Virtual Machine in Azure
+## Create a Virtual Machine in Azure with 8GB RAM
 
 Go to your Azure dashboard. (Or open a free Azure account)
 
@@ -51,7 +51,7 @@ On the drop down, click `Create` and then `Azure virtual machine`
 * Enter a name
 * Select the `region` closest to you.
 * `Availability options`: Leave default `No infrastructure redundancy required`
-* `Security type`: Leave default `Standard`
+* `Security type`: Leave default `Trusted launch virtual machines`
 * `Image`: Select `Windows 10 Pro, version 21H2 - x64 Gen2 (free services available)`
 * `VM architecture`: By default it should be `x64`
 * `Size`
@@ -68,15 +68,29 @@ A few weeks after I installed PowerBI on a VM with the `B2s` and installing Visu
 
 Either, only open one application at a time to save money. Or upgrade the instance to `B2ms`.
 
+**Size not available for a Region**
+
+I am in `Central US` so I usually pick that as a Region, however, sometimes the size I want is not available.
+
+Follow these steps to check:
+
+* Select Region `Central US`
+* Image `Windows 11 Pro, version 21H2, x64 Gen2`
+* Size, see all sizes, search for `B2ms`, results in `Size not available`
+* Back to the VM settings
+* Select Region `East US` (changing the location will create a new resource group if the rg is in another region)
+* Same image `Windows 11 Pro`
+* Size, see all sizes, search for `B2ms`, it shows as available.
+
 **Admin account**
 
-* Create `username`
-* Create `password`
+* Create a `username`
+* Create a `password`
 
 **Inbound port rules**
 
 * `Public inbound ports`: Allow selected ports
-  * Select `RDP` and `HTTPS`
+  * Select `RDP`
   * (This will allow all IP addresses to access your VM. This is only recommended for testing. Use the Advanced controls in the Networking tab to create rules to limit inbound traffic to known IP addresses)
 
 **Licensing**
@@ -93,7 +107,7 @@ Click on `Next: Networking`
 
 **Networking**
 
-Leave defaults.
+Leave defaults or assign the Vnet, subnet, and other settings.
 
 Click on `Review + create`
 
@@ -102,6 +116,21 @@ Click on `Review + create`
 Review all details then click `Create`.
 
 When ready click `go to resource`
+
+## Configure Networking after Deployment
+
+Once the VM is created go to:
+
+* Networking
+* Select the inbound port rule for `RDP`
+* Select a `Source` to choose which IPs to connect from
+
+## The VM starts when created
+
+Azure charges you when the VM is running. If you don't want to get charged:
+
+* Go to the VM/Overview
+* Click on `Stop`
 
 ## RDP on Linux
 

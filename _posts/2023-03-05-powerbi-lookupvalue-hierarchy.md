@@ -8,7 +8,7 @@ comments: true
 
 How to create a hierarchy in Power BI with Lookupvalue.
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy8.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy8.png)
 
 Requirements:
 
@@ -42,7 +42,7 @@ Open the Data interface.
 
 This table has these columns: `ProductCategoryID`, `ParentProductCategoryID`, `Name`
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy1.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy1.png)
 
 There isn't a column `ParentName`. We need the string values of `ParentProductCategoryID` to create a hierarchy of `Category/SubCategory`.
 
@@ -69,7 +69,7 @@ I changed the table name and columns so they are shorter.
   * `ProductCategoryID` to `CategoryID`
   * `ParentProductCategoryID` to `ParentCategoryID`
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy2.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy2.png)
 
 Looking again at my syntax:
 
@@ -83,7 +83,7 @@ Create a column `ParentName`
 
     ParentName = LOOKUPVALUE('ProductCategory'[Name], 'ProductCategory'[CategoryID], [ParentCategoryID])
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy3.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy3.png)
 
 ## Create a Path Column
 
@@ -97,7 +97,7 @@ In our case we are going to use the string values and not the IDs:
 
 This creates a sequence of Parent/Child strings separated by a pipe `|` symbol.
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy4.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy4.png)
 
 ## Unpivot the Path column to Path items
 
@@ -111,7 +111,7 @@ Create the second column `SubCategory`:
 
     SubCategory = PATHITEM('ProductCategory'[Path], 2)
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy5.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy5.png)
 
 ## Create the hierarchy
 
@@ -122,15 +122,15 @@ Go to the Report interface. In the `Fields` section.
 * Select new hierarchy
 * On the `SubCategory` column, click on the three dots, move it to the new hierarchy.
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy6.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy6.png)
 
 ## Create a stacked bar chart
 
 * Move to Y axis the whole hierarchy
 * Move to X axis a `Line Total` from a `Sales` table
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy7.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy7.png)
 
 On the visual use the double arrow down to go to the next hierarchy level.
 
-![PowerBI Lookupvalue Hierarchy](/images/powerbi-lookupvalue-hierarchy8.png)
+![PowerBI Lookupvalue Hierarchy](/assets/images/powerbi-lookupvalue-hierarchy8.png)

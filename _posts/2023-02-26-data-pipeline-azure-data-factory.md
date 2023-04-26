@@ -8,7 +8,7 @@ comments: true
 
 Building a pipeline with Azure Data Factory.
 
-![Azure Data Factory Pipeline](/images/azure-data-factory-pipeline.png)
+![Azure Data Factory Pipeline](/assets/images/azure-data-factory-pipeline.png)
 
 **ETL process**
 
@@ -27,7 +27,7 @@ Using the google query `unified certification program`, leads you to most states
 
 This is a sample of one of the files with a sea of rows:
 
-![Data Sources and Seas of Rows](/images/data-source-sea-of-rows.png)
+![Data Sources and Seas of Rows](/assets/images/data-source-sea-of-rows.png)
 
 ## Create an Azure Data factory
 
@@ -99,7 +99,7 @@ In another blog post, I am going to build a star schema from this database since
 
 Open the `Tables` to verify that the query ran correctly. I can see the columns in `dbo.Directory`
 
-![Database in SQL Server](/images/sql-server-database.png)
+![Database in SQL Server](/assets/images/sql-server-database.png)
 
 ## Data Factory Workflow
 
@@ -137,7 +137,7 @@ More about Data Factory Source Control in the Microsoft docs [here](https://lear
 * Go to GitHub and create a repo.
 * Set to private. Initialize with a Readme
 
-![Azure Data Factory Git Repository](/images/azure-data-factory-git-repository.png)
+![Azure Data Factory Git Repository](/assets/images/azure-data-factory-git-repository.png)
 
 **Add the GitHub repo to Data Factory**
 
@@ -175,7 +175,7 @@ In Data Factory, top left, a `main branch` will show up.
 * Name: `Blob CSV to SQL`
 * `Save all` to commit to the repository
 
-![Azure Data Factory Pipeline](/images/azure-data-factory-pipeline-resource.png)
+![Azure Data Factory Pipeline](/assets/images/azure-data-factory-pipeline-resource.png)
 
 ## 3. Create a Linked Service for the Blob container
 
@@ -192,7 +192,7 @@ In Data Factory:
 * Click `Create`
 * `Save all` to commit to the repository
 
-![Azure Data Factory Linked Services InputBlob](/images/azure-data-factory-linked-services-inputblob.png)
+![Azure Data Factory Linked Services InputBlob](/assets/images/azure-data-factory-linked-services-inputblob.png)
 
 ## 4. Create a Dataset to join the output of the Data Flow
 
@@ -210,7 +210,7 @@ We need to transform the CSV files from the Azure Blob, clean the data, and join
 * A new dataset is created
 * `Save all` to commit to the repository
 
-![Azure Data Factory Datasets](/images/azure-data-factory-datasets.png)
+![Azure Data Factory Datasets](/assets/images/azure-data-factory-datasets.png)
 
 ## 5. Create a Data Flow to process each CSV file
 
@@ -223,7 +223,7 @@ Since all the files are CSVs in the Azure Blob container. We are using Data Flow
 
 This is what the final Data Flow looks like, all the way zoomed out:
 
-![Azure Data Factory Data Flow Zoomed Out](/images/azure-data-factory-dataflow.png)
+![Azure Data Factory Data Flow Zoomed Out](/assets/images/azure-data-factory-dataflow.png)
 
 **Create a Data Flow**
 
@@ -252,7 +252,7 @@ This is what the final Data Flow looks like, all the way zoomed out:
 
 Final result of the Data Flow, zoomed in:
 
-![Azure Data Factory Data flow Zoom in](/images/azure-data-factory-data-flow-zoom1.png)
+![Azure Data Factory Data flow Zoom in](/assets/images/azure-data-factory-data-flow-zoom1.png)
 
 **Create a Source**
 
@@ -285,7 +285,7 @@ Final result of the Data Flow, zoomed in:
 
 Final result of the Data Flow, a closer look:
 
-![Azure Data Factory Data Flow Zoom more](/images/azure-data-factory-data-flow-zoom2.png)
+![Azure Data Factory Data Flow Zoom more](/assets/images/azure-data-factory-data-flow-zoom2.png)
 
 **Data Transformation: RenameColumns**
 
@@ -332,7 +332,7 @@ On the `RenameColumns` (Select card):
     * Select the box `Clear the folder` (keep in mind this will delete contents of the output container)
 * `Save all` to commit to the repository
 
-![Azure Data Factory Data Flow Union](/images/azure-data-factory-data-flow-union.png)
+![Azure Data Factory Data Flow Union](/assets/images/azure-data-factory-data-flow-union.png)
 
 **Using Union or Join**
 
@@ -422,7 +422,7 @@ Later when you try to move the dataset from Data Studio to SQL Server. It might 
 * We could modify the dataset to match the data type lengths and/or
 * Clean the dataset and modify the data type lengths in SQL Server
 
-![Azure Data Factory Power Query](/images/azure-data-factory-power-query.png)
+![Azure Data Factory Power Query](/assets/images/azure-data-factory-power-query.png)
 
 **Create a PowerQuery resource**
 
@@ -581,7 +581,7 @@ When done debugging, turn it off, or they will keep charging you. `Save all` to 
 * Run a query `SELECT COUNT(*) FROM your-database-name`
 * Verify the results
 
-![Azure Data Factory SQL Server](/images/azure-data-factory-sql-server.png)
+![Azure Data Factory SQL Server](/assets/images/azure-data-factory-sql-server.png)
 
 **Run again using a Trigger**
 

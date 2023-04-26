@@ -280,6 +280,10 @@ You can use the following in your post/page YAML header:
 * `title`
 * `description`
 
+## Using the sitemap
+
+This plugin `jekyll-sitemap` generates a sitemap as `domain.com/sitemap.xml`. You can submit this `sitemap.xml` in your Google Search Console.
+
 
 ## Using a different theme
 

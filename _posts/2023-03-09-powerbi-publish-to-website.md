@@ -28,7 +28,7 @@ This requires admin rights/access to `Admin Portal`
 * Click on the top right wheel settings
 * One option should be `Admin Portal`
 
-![Power BI Publish to a Website Admin Portal Menu](/images/powerbi-publish-to-website-admin-portal-menu.png)
+![Power BI Publish to a Website Admin Portal Menu](/assets/images/powerbi-publish-to-website-admin-portal-menu.png)
 
 Under the `Tenant settings` menu:
 
@@ -38,20 +38,20 @@ Under the `Tenant settings` menu:
 * Select `Allow existing and new codes`
 * Click `Apply`
 
-![Power BI Publish to a Website Enabled](/images/powerbi-publish-to-website-enabled.png)
+![Power BI Publish to a Website Enabled](/assets/images/powerbi-publish-to-website-enabled.png)
 
 ## The dataset is not in the same workspace as the report
 
 In this example, Power BI won't let you export the `GitHub Pandas` report to the web. It opens the publish to web menu, however, when you try to `Publish`, it says `Creating code` but nothing happens.
 
-![Power BI Publish to a Website No Dataset](/images/powerbi-publish-to-website-no-dataset.png)
+![Power BI Publish to a Website No Dataset](/assets/images/powerbi-publish-to-website-no-dataset.png)
 
 * Go to your workspace
 * Check that the dataset is in the same workspace as the report
 
 If the code generation works, the next screen should look like this:
 
-![Power BI Publish to a Website Code Generated](/images/powerbi-publish-to-website-code-generated.png)
+![Power BI Publish to a Website Code Generated](/assets/images/powerbi-publish-to-website-code-generated.png)
 
 ## Embedding the code in a website
 
@@ -65,7 +65,7 @@ You can also embed the `iframe` code in a web page...
 
 Go to the Power BI Service website. Go to the `Settings` wheel, then `Manage embed codes`
 
-![Power BI Publish to a Website No Embed codes](/images/powerbi-publish-to-website-no-embed-codes.png)
+![Power BI Publish to a Website No Embed codes](/assets/images/powerbi-publish-to-website-no-embed-codes.png)
 
 This UI is a bit weird. You would assume that it shows you all embed codes regardless of workspace. The data on this page loads based on your current workspace.
 

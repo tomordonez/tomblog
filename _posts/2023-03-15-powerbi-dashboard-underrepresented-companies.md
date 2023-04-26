@@ -8,7 +8,7 @@ comments: true
 
 Every US state has a DOT website about underrepresented and minority-owned companies also known as `DBE` or `Disadvantaged Business Enteprise`. This is the dashboard to visualize these companies by region.
 
-![Power BI Dashboard Underrepresented Companies](/images/powerbi-dashboard-dbe-dashboard.png)
+![Power BI Dashboard Underrepresented Companies](/assets/images/powerbi-dashboard-dbe-dashboard.png)
 
 I previously wrote about the ETL process of this dataset in [Creating a data pipeline with Azure Data Factory](../data-pipeline-azure-data-factory/). Here is a summary:
 
@@ -18,7 +18,7 @@ I previously wrote about the ETL process of this dataset in [Creating a data pip
 
 ## Database schema
 
-![Power BI Dashboard Underrepresented Companies DB Schema](/images/powerbi-dashboard-dbe-db-schema.png)
+![Power BI Dashboard Underrepresented Companies DB Schema](/assets/images/powerbi-dashboard-dbe-db-schema.png)
 
 ## First transformations
 
@@ -26,7 +26,7 @@ I previously wrote about the ETL process of this dataset in [Creating a data pip
 * Removed State and Zip values from the City column.
 * Removed the Address column. Such level of detail was not required and it contained too many inconsistencies.
 
-![Power BI Dashboard Underrepresented Companies Address](/images/powerbi-dashboard-dbe-address-normalization.png)
+![Power BI Dashboard Underrepresented Companies Address](/assets/images/powerbi-dashboard-dbe-address-normalization.png)
 
 ## Exploratory data analysis
 
@@ -43,7 +43,7 @@ Loaded the dataset into Power BI from the Azure SQL Database. Then created a map
 * Created dimension tables for `Geography`, `Agency`, `Certification Type`, `Company`, and `Category`
 * Joined `Geography` to a dataset of zip codes to find the latitude and longitude.
 
-![Power BI Dashboard Underrepresented Companies Star Schema](/images/powerbi-dashboard-dbe-star-schema.png)
+![Power BI Dashboard Underrepresented Companies Star Schema](/assets/images/powerbi-dashboard-dbe-star-schema.png)
 
 ## Other transformations
 
@@ -98,17 +98,17 @@ In Power Query this won't work. You need to create a dataframe with the dataset:
 
     df = pd.DataFrame(dataset)
 
-![Power BI Dashboard Underrepresented Companies Python Script](/images/powerbi-dashboard-dbe-python-script.png)
+![Power BI Dashboard Underrepresented Companies Python Script](/assets/images/powerbi-dashboard-dbe-python-script.png)
 
 Run the script and set the permissions for the script. These have to match the privacy of your dataset. If your dataset is `Organizational` then the Python script has to be set to the same.
 
 A table is created showing the dataframes in the script.
 
-![Power BI Dashboard Underrepresented Companies Python Script Table](/images/powerbi-dashboard-dbe-python-script-table.png)
+![Power BI Dashboard Underrepresented Companies Python Script Table](/assets/images/powerbi-dashboard-dbe-python-script-table.png)
 
 Click on the resulting Table value to expand it.
 
-![Power BI Dashboard Underrepresented Companies Python Script Table](/images/powerbi-dashboard-dbe-python-script-table-value.png)
+![Power BI Dashboard Underrepresented Companies Python Script Table](/assets/images/powerbi-dashboard-dbe-python-script-table-value.png)
 
 ## Create the visualization
 
@@ -145,4 +145,4 @@ Click on the resulting Table value to expand it.
 
 ## Final Dashboard
 
-![Power BI Dashboard Underrepresented Companies](/images/powerbi-dashboard-dbe-dashboard.png)
+![Power BI Dashboard Underrepresented Companies](/assets/images/powerbi-dashboard-dbe-dashboard.png)

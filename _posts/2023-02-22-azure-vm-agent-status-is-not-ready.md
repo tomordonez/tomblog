@@ -54,7 +54,7 @@ Magically the `Agent status` changed to `Ready`. Tried again to connect with cli
 
 The new behavior I am seeing is that the VM doesn't start right away. I guess, similar to a computer when you turn it on. It doesn't magically jumps to the login screen. For the VM, once I start it, I wait around 5 minutes, use the `refresh` button, and the `Agent status` changes to `Ready`.
 
-![Azure VM Agent Status Not Ready](/images/azure-vm-agent-not-ready.png)
+![Azure VM Agent Status Not Ready](/assets/images/azure-vm-agent-not-ready.png)
 
 ## Solution
 

@@ -8,7 +8,7 @@ comments: true
 
 Using Power BI with Azure to find trends in data analytics from Google Ads and StackOverflow.
 
-![PowerBI and Azure Topics in Data Analytics](/images/powerbi-azure-topics-data-analytics-dashboard.png)
+![PowerBI and Azure Topics in Data Analytics](/assets/images/powerbi-azure-topics-data-analytics-dashboard.png)
 
 ## Motivation
 
@@ -53,7 +53,7 @@ Also, from the Internet Archive, I downloaded the dataset that contained all the
 
 In the Keyword Planner UI, you can enter up to 10 keywords per search and it outputs a dataset of keyword ideas, average monthly searches per keyword, competition level, and estimated price to bid on ads.
 
-![PowerBI and Azure with Google Ads](/images/powerbi-azure-google-ads-keyword-planner.png)
+![PowerBI and Azure with Google Ads](/assets/images/powerbi-azure-google-ads-keyword-planner.png)
 
 **Datasets**
 
@@ -76,7 +76,7 @@ StackOverflow has an interface called `Data Explorer` where you can create a SQL
 
 I wrote a SQL query, as seen in this link [Find posts by tags and order by views](https://data.stackexchange.com/stackoverflow/query/1719207/find-posts-by-tags-and-order-by-views), to find the top questions based on tags and views.
 
-![PowerBI and Azure with StackOverflow](/images/powerbi-azure-stackoverflow.png)
+![PowerBI and Azure with StackOverflow](/assets/images/powerbi-azure-stackoverflow.png)
 
 For example, I wanted to find the top N questions with the most views for the tag `azure`. I ran the query with other relevant keywords that generated a few CSV files.
 
@@ -134,7 +134,7 @@ I cleaned the rows and separated the values with commas, split them into five co
 * Created a dim Date table using M
 * Created the fact table BlogPost
 
-![Power BI Data Model Star Schema](/images/powerbi-data-model-star-schema.png)
+![Power BI Data Model Star Schema](/assets/images/powerbi-data-model-star-schema.png)
 
 ## Created measures
 
@@ -155,8 +155,8 @@ Created other measures to show:
 
 ## Trending Topics in Data Analytics
 
-![PowerBI and Azure Topics in Data Analytics](/images/powerbi-azure-topics-data-analytics-dashboard.png)
+![PowerBI and Azure Topics in Data Analytics](/assets/images/powerbi-azure-topics-data-analytics-dashboard.png)
 
 ## Top Questions in StackOverflow
 
-![PowerBI and Azure Topics in Data Analytics Top Questions](/images/powerbi-azure-topics-data-analytics-top-questions.png)
+![PowerBI and Azure Topics in Data Analytics Top Questions](/assets/images/powerbi-azure-topics-data-analytics-top-questions.png)

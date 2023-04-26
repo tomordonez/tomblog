@@ -8,7 +8,7 @@ comments: true
 
 I am having some issues with `scp` to copy files from Linux to an Azure Windows 10 VM. Here is a procedure to create a shared folder between Azure Storage and a Windows VM.
 
-![Azure Windows VM File Share](/images/azure-windows-vm-file-share.png)
+![Azure Windows VM File Share](/assets/images/azure-windows-vm-file-share.png)
 
 ## Create a File Share in Azure Storage
 
@@ -23,7 +23,7 @@ For reference. There is a note that says `To use the SMB protocol with this shar
 
 ## Get a PowerShell Script to Check Port 445
 
-![Azure Windows VM File Share Script](/images/azure-windows-vm-file-share-connect-smb-script.png)
+![Azure Windows VM File Share Script](/assets/images/azure-windows-vm-file-share-connect-smb-script.png)
 
 Another note:
 
@@ -45,7 +45,7 @@ Warning note:
 
 ## Run the script in the Azure VM
 
-![Azure Windows VM File Share PowerShell Script](/images/azure-windows-vm-file-share-runpowershellscript.png)
+![Azure Windows VM File Share PowerShell Script](/assets/images/azure-windows-vm-file-share-runpowershellscript.png)
 
 1. In Azure portal, go to the VM, under Operations
 2. Click `Run Command`, then `RunPowerShellScript`.
@@ -57,7 +57,7 @@ The output says `CMDKEY: Credential added successfully`
 
 ## Mount the File Share in the Windows VM
 
-![Azure Windows VM File Share Map Network Drive](/images/azure-windows-vm-file-share-map-network-drive.png)
+![Azure Windows VM File Share Map Network Drive](/assets/images/azure-windows-vm-file-share-map-network-drive.png)
 
 1. Login RDP to the Windows VM
 2. Open File Explorer, then `This PC`, top menu `Computer` then `Map network drive`, select `Map network drive`

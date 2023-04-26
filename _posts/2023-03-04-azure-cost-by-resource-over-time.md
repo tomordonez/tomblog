@@ -8,7 +8,7 @@ comments: true
 
 How to review the cost of Azure by resource over time.
 
-![Azure Data Factory Cost Over time](/images/azure-data-factory-cost-over-time.png)
+![Azure Data Factory Cost Over time](/assets/images/azure-data-factory-cost-over-time.png)
 
 Microsoft has detailed documentation about Azure cost analysis. This is how I quickly review the report of Azure for specific resources I used.
 
@@ -25,9 +25,9 @@ On the default dashboard:
 * At the top menu
 * Change the `View` to `DailyCosts`
 
-![Azure Data Factory Cost](/images/azure-data-factory-cost.png)
+![Azure Data Factory Cost](/assets/images/azure-data-factory-cost.png)
 
 Then change the period. I selected the last 7 days. Then used the filter and selected the resource. In this case Azure Data Factory.
 
-![Azure Data Factory Cost Bar Chart](/images/azure-data-factory-cost-barchart.png)
+![Azure Data Factory Cost Bar Chart](/assets/images/azure-data-factory-cost-barchart.png)
 
