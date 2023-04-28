@@ -191,6 +191,8 @@ There is a Youtube tutorial about some of the above workflow [here](https://www.
 
 ![Azure Data Factory Pipeline](/assets/images/azure-data-factory-pipeline-resource.png)
 
+***
+
 ## Create Linked Services
 
 ### Create a Linked Service for the Blob container
@@ -279,187 +281,11 @@ There are two transformation features in Azure Data Factory. Which one to use de
 
 Since all the files are CSVs in the Azure Blob container. We are using Data Flow.
 
-This is what the final Data Flow looks like:
-
-![Azure Data Factory Data Flow Zoomed Out](/assets/images/azure-data-factory-dataflow.png)
-
-**Create a Data Flow**
-
-* On the left menu, Author/Edit interface
-* Under `Factory Resources` then `Data Flow`
-* Create a `New data flow`
-* Name it `JoinInputCSVs`
-* On the graph canvas section, an icon shows `Add source`
-* `Save all` to commit to the repository
-  
-**Data Flow Workflow**
-
-1. Create a source for every CSV file
-2. Add a transformation for each source
-3. Joined the transformed output to the dataset created above `OutputDataflowCSV`
-
-Optimization:
-
-* Instead of creating a source for every CSV file.
-* An optimization strategy could be to group CSV files with a common format in a Blob container
-* In DataFlow create a parameterized component that gets a list of CSV names from this container
-* Then create another component that loops through each of these files.
-
-**Build the Data Flow in Debug Mode**
-
-* This will allow you to preview the data as you transform it.
-* However, it creates a Spark cluster for the period you specify (when enabling `Debug`)
-* They will charge you for the time the cluster is running.
-* Stop debug mode when done transforming the data.
-* You can change the number of rows to preview.
-* I set my rows to `100`. The default is `1000`
-  * This setting is changed to the default every time you stop/start a Debug instance.
+Follow my post [Azure Data Factory Data Flow](../azure-data-factory-dataflow/) for a detailed tutorial on this process.
 
 Final result of the Data Flow, zoomed in:
 
 ![Azure Data Factory Data flow Zoom in](/assets/images/azure-data-factory-data-flow-zoom1.png)
-
-**Create a Source**
-
-* On the graph canvas section, click on `Add source`
-* `Settings` tab
-  * Enter a name, for example `TexasCSV`
-  * In Source type, select `Inline`
-  * In Dataset type, select `DelimitedText`
-  * Select the Linked service, `InputBlob`
-  * Sampling set to `Disable`
-    * Don't confuse this with debugging, which displays a number of rows to preview
-    * If Enabled, this will filter the dataset to the specified number of rows.
-    * In other words, if your CSV file has 1M rows and you sample it to 10 rows. The output will contain 10 rows.
-    * As the legend says. Enable this for debugging and testing.
-    * But it doesn't clarify to disable once you are done debugging.
-* `Options` tab
-  * Select the `File path` using `Browse`
-  * For this source `TexasCSV`. My file path was `dbeapp/inputCSV/texas-dbe.csv`
-  * Select `First row as header`
-* `Save all` to commit to the repository
-
-**Debug what you have so far**
-
-* Enable `Data flow debug`
-* Change `Debug settings` with a row limit of `100`
-* In `Source Settings` tab
-  * In `Linked Service` click on `Test connection`
-* In `Data preview` tab
-  * Click `Refresh`
-  * If you get the error `The gateway did not receive a response from 'Microsoft.DataFactory'`
-    * Disable Debug and Enable again
-
-Final result of the Data Flow, a closer look:
-
-![Azure Data Factory Data Flow Zoom more](/assets/images/azure-data-factory-data-flow-zoom2.png)
-
-**Schema Evolution and Schema Drift**
-
-If the schema at the source is most likely to change then in the dataset `Schema` settings, don't import the schema. When setting up a workflow in a Data Flow, select the setting `Allow schema drift` and set the mapping to `Auto mapping`.
-
-**Data Transformation: RenameColumns**
-
-I want these columns:
-
-    CompanyName, DBAName, Address, City, State, Zip, Website, Agency, CertificationType, Capability, County
-
-On the `Source` card (In my example `TexasCSV`)
-
-* Go the `Data preview` tab
-* Click `Map drifted`
-* This creates a new connecting card called `MapDrifted`
-
-On the `MapDrifted` card
-
-* Change the name to your naming convention. In my example I changed to `MapDriftTX`
-* Remove the columns to exclude
-* Click on the plus `+` icon to create another component and click on `Select`
-
-On the `Select` card
-
-* Change name to `RenameColumns`
-* Next to `Input columns`, uncheck `Auto mapping` (it should be unchecked already)
-* Then map the columns from the left `MapDriftTX` to the `Name as` (columns to keep)
-* Rename the columns
-* In `Data preview` tab, click `Refresh`
-* `Save all` to commit to the repository
-
-**Add Output to a Sink**
-
-On the `RenameColumns` (Select card):
-
-* Click on the plus `+` icon
-* Select `Destination` then `Sink`
-* `Sink` tab
-  * Change name to `OutputJoinedCSV`
-  * Sink type `Dataset`
-  * Dataset, select `OutputDataflowCSV` and `Test Connection`
-* `Settings` tab
-  * File name option, select `Output to single file`
-    * Since Spark uses HDFS, it will break the output into many files, when selecting `Default`
-    * Changing to `single file` will show this warning `Output to single file requires Single Partition to be the selected partition type. This setting may impact performance and should only be used for smaller datasets` and a button to `Set single partition`
-    * In `Output to single file` enter a name like `dbe-joined.csv`
-    * Select the box `Clear the folder` (keep in mind this will delete contents of the output container)
-* `Save all` to commit to the repository
-
-![Azure Data Factory Data Flow Union](/assets/images/azure-data-factory-data-flow-union.png)
-
-**Using Union or Join**
-
-Use `Union`:
-* If different sources have the same columns and you want to row-wise append one to another
-* The same as SQL Union
-
-Use `Join`:
-* If you want to join two sources by a common column
-* The same as SQL Join
-
-Use the tab `Inspect`
-* Use this preview to verify that the columns across all `Union` or `Join` match
-
-**Columns in different sources don't match**
-
-What I realized from my CSV files was that those that used the same platform (they had the same columns), when exported them to CSV and previewing the columns, some had more/fewer columns. I couldn't do a `Union` at the source.
-
-* For each source, add the source and map drift the schema
-* In Map Drifted, remove the columns to exclude
-* On that card, add a `Union` to integrate the data sources to `RenameColumns`
-
-**Run the Dataflow in the Pipeline**
-
-* Open the `Pipeline`
-* Under `Activities` then `Move & transform`
-* Drag/Drop `Data flow` to the canvas
-* Name `JoinInputCSVs`
-* Settings tab
-  * Select the dataflow
-  * Run on (Azure or IR). Leave default
-  * Compute size. Leave default `Small`
-* Click on the canvas
-* On the `Debug` drop down, select `Integration Runtime`
-  * At the bottom `Output` tab, it should show a `Pipeline run ID`
-* Click on `Data flow debug`
-  * It shows a process running with status `In Progress`
-  * For my run, it took 53 seconds
-* `Save all` to commit to the repository
-
-**Verify the content in the Blob container**
-
-* Go to the output container
-* Verify that the file was created. In my case it was called `dbe-joined.csv`
-* Can't preview this file in `Edit` (the limit is about 2MB)
-* Download the CSV to review with another tool
-
-**Using the Optimize tab in Dataflow steps**
-
-* If the datasets are small select `Single partition`, otherwise the pipeline will take longer to run
-* If the datasets are large leave the default `Use current partitioning`
-
-**Results of joining DBE files**
-
-* About `36,000` rows (companies)
-* Size `6MB`
 
 ***
 
@@ -559,6 +385,8 @@ Go to the SQL Server Table, then Query Editor. Recreated the table to map the ma
 * Add it again
 * Reload the steps
 
+***
+
 ## Create a Copy Activity from PowerQuery output to SQL Server
 
 * Go to the Author/Edit interface
@@ -569,7 +397,7 @@ Go to the SQL Server Table, then Query Editor. Recreated the table to map the ma
 * Go to the `Source` tab and select the `Source dataset`. Select the `OutputPowerQueryCSV` dataset
 * Go to the `Sink` tab and select the `Sink dataset`. Select the `OutputSQLTable` dataset
   * In `Pre-copy script` enter `delete from your-table-name`
-    * For example `delete from Directory`
+    * For example `delete from Directory` (my table was called `Directory`)
     * This is similar to saying `IF EXISTS(something)...DELETE FROM your-table-name`
 * Go to the `Mapping` tab to verify the input columns map correctly to the output ones.
   * Click on `Import schemas`
@@ -582,18 +410,6 @@ Go to the SQL Server Table, then Query Editor. Recreated the table to map the ma
 * This means on Power Query completion, do the next step Copy Data.
 * `Save all` to commit to the repository
 
-**Debug to run the Pipeline**
-
-* Click on `Dataflow debug` and then `Debug`
-* Then click on the canvas
-* At the bottom window, go to `Output` to see the process run.
-
-**If it takes too long to run**
-
-* After an activity is completed. Browse over that row and it shows a `glasses` icon
-* Click on this icon to see the time it takes to complete in each step
-* Review the `Optimize` tab for every step in the pipeline
-
 **Error: Copy activity CSVtoSQL**
 
 I initially didn't add PowerQuery to clean the data and got this error:
@@ -602,9 +418,7 @@ I initially didn't add PowerQuery to clean the data and got this error:
 
 The error means that the output will truncate the input because the data types don't match. I found out that the lengths I defined in the output were too short. I added a PowerQuery activity as described previously.
 
-**STOP Debug Mode**
-
-When done debugging, turn it off, or they will keep charging you. `Save all` to commit to the repository
+***
 
 ## Verify the data copied from Input Blob To SQL Server
 
@@ -622,6 +436,8 @@ So far the pipeline ran in debugging mode. Create a trigger to keep a record of 
 * Go to the Data Factory
 * `Add trigger`, then `Trigger Now`.
 * It will monitor this run in the Monitor interface.
+
+See more about triggers in [Azure Data Factory Scheduling](../azure-data-factory-scheduling/).
 
 **Publish**
 

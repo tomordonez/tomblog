@@ -11,16 +11,18 @@ Connect an on-prem SQL Server to Azure Data Factory using a self-hosted integrat
 
 ## Summary
 
-This simulates an on-prem environment by creating two servers in the same network. One server has SQL Server and connects to the other one using the same network. The second server has IR installed to connect to Azure.
+This simulates an on-prem environment by creating two servers in the same network. One has SQL Server and the other has a self-hosted integration runtime installed to connect to Azure.
 
-In an actual on-prem environment you need access to a server that is only used for having the IR. You still need to test the connection between this and the SQL Server machine.
+The on-prem IR server connects to the on-prem SQL server to query tables and copy them to Azure Synapse through Azure Data Factory. The tables are stored in Azure Blob storage using Parquet files. These files are copied to Azure SQL Database for data warehouse. Then Power BI connects to this database to create reporting.
 
 1. Create two Windows VMs in Azure with the same virtual network/subnet
-2. In VM1: Install SQL Server
+2. In VM1: Install SQL Server with sample database.
 3. In VM2: Install Azure Data Studio and the self-hosted IR.
-4. Test connection VM2 -> VM1 and load a sample database
-5. Load data from VM1 with Azure Data Factory
+4. Test connection VM2 -> VM1.
+5. Create an ELT pipeline in Azure Data Factory to move data from "on-prem" VM1 (SQL Server) to Azure SQL.
 6. Create a PowerBI report
+
+***
 
 ## Create a resource group
 
@@ -30,6 +32,8 @@ In Azure, search for `resource group`
 * Enter a name like `onprem-azure-dw`
 * Select a region
 * Leave other defaults and Create
+
+***
 
 ## Create a virtual network
 
@@ -41,6 +45,8 @@ In Azure, search for `virtual network`
 * Select or modify the default subnet
 * Leave other defaults and create.
 
+***
+
 ## Create a network security group
 
 In Azure, search for `nsg`
@@ -50,7 +56,11 @@ In Azure, search for `nsg`
 * Enter a name, for example `onprem-nsg` and select a region
 * Leave other defaults and create.
 
+***
+
 ## Create a SQL Server Windows VM
+
+**I will refer to it as the IR Server VM**
 
 In Azure, search for `Azure SQL`.
 
@@ -86,12 +96,16 @@ In Azure, search for `Azure SQL`.
 * Click `Review and create`
 * Select `Create`
 
+***
+
 ## Create another Windows Server VM
+
+**I will refer to it as the SQL Server VM**
 
 This VM is used for:
 
 * Connecting to the SQL Server Windows VM in the virtual network.
-* Installing the Integration Runtime (IR) to connect to Azure Data Factory.
+* Installing the Self-Hosted Integration Runtime (IR) to connect to Azure Data Factory.
 
 In Azure, search for `Virtual Machine`
 
@@ -115,13 +129,15 @@ After provisioned:
 * Select RDP
 * Change `Source` to My IP Address (Or select a different option)
 
-## Test Connection from Server VM to the SQL Server VM
+***
+
+## Test Connection from IR Server VM to the SQL Server VM
 
 Go to Azure to find the local IP address of the SQL Server VM `sql-server-IP`.
 
-RDP to the Windows Server VM. 
+RDP to the IR Server VM. 
 
-Open PowerShell and test the connection from Windows Server VM to the SQL Server VM.
+Open PowerShell and test the connection from IR Server VM to the SQL Server VM.
 
     Test-NetConnection sql-server-IP -port 1433
 
@@ -131,12 +147,14 @@ Output should be similar to this:
     RemoteAddress    : sql-server-IP
     RemotePort       : 1433
     InterfaceAlias   : Ethernet
-    SourceAddress    : server-IP
+    SourceAddress    : ir-server-IP
     TcpTestSucceeded : True
 
-## Install Azure Data Studio in Windows Server VM
+***
 
-RDP to the Windows Server VM. Open Powershell and install Azure Data Studio using Chocolatey. This is the Windows version of Linux's `apt` or `dnf`.
+## Install Azure Data Studio in IR Server VM
+
+RDP to the IR Server VM. Open Powershell and install Azure Data Studio using Chocolatey. This is the Windows version of Linux's `apt` or `dnf`.
 
 **Set up $profile in PowerShell**
 
@@ -144,7 +162,7 @@ See the contents of `$profile`:
 
     Write-Host $profile
 
-his only shows the variable's content but the file doesn't exist there:
+This only shows the variable's content but the file doesn't exist there:
 
     C:\Users\...\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
 
@@ -158,7 +176,7 @@ Install Chocolatey as seen in the official docs [here](https://docs.chocolatey.o
 
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-Even though, the docs don't fully explain exactly what this do. Here is a short summary form ChatGPT:
+Even though, the docs don't fully explain exactly what this does. Here is a short summary form ChatGPT:
 
     ...this command sets up the PowerShell environment to allow the execution of scripts without any restrictions, updates the security protocol used for connecting to remote servers, and then downloads and installs the Chocolatey package manager using a script from a specific URL.
 
@@ -279,11 +297,13 @@ Optionally install SSMS:
 
     choco install sql-server-management-studio --yes
 
+***
+
 ## Load a sample database in SQL Server VM
 
 **Copying files between VMs doesn't work**
 
-I couldn't figure out how to copy a file from the Windows Server VM to the SQL Server VM using `Copy-Item` in PowerShell since this gives an error:
+I couldn't figure out how to copy a file from the IR Server VM to the SQL Server VM using `Copy-Item` in PowerShell since this gives an error:
 
     Copy-Item -Path "C:\Users\...\Documents\sampledatabase.bk" -Destination "\\IP-Number\C$\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\Backup"
 
@@ -312,9 +332,9 @@ Go to the Adventure Works Microsoft website [here](https://learn.microsoft.com/e
 * Close SSMS
 * Close the RDP connection to the SQL Server
 
-**Connect to SQL Server VM from the other Windows Server VM**
+**Connect to SQL Server VM from the IR Server VM**
 
-Open SSMS (Azure Data Studio lacks so much functionality) in the Windows Server and connect to the SQL Server VM
+Open SSMS (Azure Data Studio lacks so much functionality) in the IR Server and connect to the SQL Server VM
 
 * In the connection
   * Enter the SQL Server local IP
@@ -329,7 +349,7 @@ Verify that the database was restored by creating some queries. Right click on t
 
 **Disable the SQL Server VM RDP and Public IP**
 
-This tutorial is to simulate that the SQL Server VM is an on-prem server with no public connection.
+Since this tutorial simulates that the SQL Server VM is an on-prem server with no public connection. Then RDP should be disabled.
 
 * Go to Azure
 * Find the SQL Server VM
@@ -337,12 +357,14 @@ This tutorial is to simulate that the SQL Server VM is an on-prem server with no
 * Select the RDP inbound port rule
 * Click on the `...` and delete
 
+***
+
 ## Setup an Azure SQL Database to use as the DW
 
 The workflow is:
 
-* Win Server with IR to ADF (with or without Synapse)
-* ADF ETL pipeline to Azure SQL Database or Azure Data Lake (star schema)
+* IR Server VM to Azure Data Factory (with or without Synapse)
+* ADF ELT pipeline to Azure SQL Database or Azure Data Lake (star schema)
 * Azure SQL or ADL to Power BI
 
 This workflow may have three variations for Power BI:
@@ -360,6 +382,8 @@ See [PowerBI with Azure SQL Database](../powerbi-azure-sql-database/) for comple
 * Computer + Storage set to `Basic`
 * Backup redundancy set to `Locally-redundant backup storage`
 * Leave other defaults and Create
+
+***
 
 ## Create an Azure Data Factory
 
@@ -401,6 +425,8 @@ See complete details in [Build a pipeline with Azure Data Factory](../data-pipel
 * Leave other defaults
 * Click `Create`
 
+***
+
 ## Create a self-hosted integration runtime (IR)
 
 Once the ADF is deployed, open the resource. Then click on `Launch studio`
@@ -424,14 +450,14 @@ Once the ADF is deployed, open the resource. Then click on `Launch studio`
 * Under `Option 2: Manual setup`, open the link to `Download and install integration runtime`
 * Copy/paste this link in the Windows Server to install the IR
 
-**Setup the integration runtime in the Windows Server**
+**Setup the Integration Runtime in the IR Server VM**
 
 For this tutorial, I started the two VMs:
 
-* `onprem-ir` (Windows Server for the IR)
-* `onprem-sqlserver` (Windows Server with SQL Server).
+* `onprem-ir` (IR Server VM)
+* `onprem-sqlserver` (SQL Server VM).
 
-Go to the Windows Server.
+Go to the IR Server.
 
 *Side note about RDP to the VM*
 
@@ -456,6 +482,8 @@ In ADF confirm that the self-hosted is running
 * Manage, Integration runtimes
 * The created IR, in this tutorial I named it `onprem` should be listed and status is `Running`
 
+***
+
 ## Connect onprem SQL Server to Azure Data Factory
 
 **Setup a Linked Service for SQL Server**
@@ -463,8 +491,8 @@ In ADF confirm that the self-hosted is running
 * Go to ADF, Manage, Linked Services, New
 * Search for `SQL Server`
 * Enter a name like `onprem_sqlserver`
-* Connect via integration runtime, select `onprem`
-* For `Server name`, enter the private IP of the SQL Server machine
+* Connect via integration runtime, select `onprem` (this is the self-hosted IR)
+* For `Server name`, enter the private IP of the SQL Server VM
 * For `Database name` enter the sample database `AdventureWorksDW2019`
 * Authenticate with `SQL Authentication` and enter your user and pwd
 * Click `Test connection` and it should say `Connection successful`
@@ -483,6 +511,8 @@ This is used as the data warehouse for the star schema, which will be the source
   * Authentication: `SQL authentication`
   * Enter user/pwd for the Azure SQL Server.
 * Click `Test connection` then `Create`
+
+***
 
 ## Create an Azure Data Factory pipeline
 
