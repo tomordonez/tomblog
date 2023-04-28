@@ -33,6 +33,11 @@ theme: minima
 minima:
     skin: solarized
 
+# https://github.com/jekyll/minima/issues/709#issuecomment-1439967963
+# Deprecation warnings when deploying
+sass:
+    quiet_deps: true
+
 minima:
   social_links:
     twitter: tomordonez

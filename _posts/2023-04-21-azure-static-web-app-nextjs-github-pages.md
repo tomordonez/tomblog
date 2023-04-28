@@ -36,13 +36,40 @@ Go to Azure
 * Search `Static web apps`
 * Create
 * Enter the basics details
-* Plan type Free
+* Plan type `Free`
 * Select sign in with GitHub
 * Build details select Custom
 * App location `./`
 * API location empty
 * Output location `_site`
 * Review and Create
+
+**Static Web App Quotas**
+
+As seen in the MS docs [here](https://learn.microsoft.com/en-us/azure/static-web-apps/quotas). There are limits to the `Storage` in the `Free` and `Standard` plans:
+
+* Storage Free Plan: 250MB max per app
+* Storage Standard Plan: 500MB max per app
+
+I recently reached the Free plan limit. I got an error from GitHub Actions saying:
+
+	The content server has rejected the request with: BadRequest
+	Reason: The size of the app content was too large. The limit for this Static Web App is 262144000 bytes. For a higher app size limit, consider upgrading to the Standard plan.
+
+Changing the plan:
+
+* Go to the Static Web App in Azure
+* Under `Settings/Hosting Plan`
+* Change from `Free` to `Standard`
+* It will increase the price to `9.00 USD/per app/month`
+
+**Tentative Strategy to move back to Free**
+
+The Free plan has a limit for `Custom domains` to `2 per app`.
+
+* Create another app to store posts older than 2 years.
+* Manually do a cutoff of 2y or older posts and move them
+* Or write a program that automatically moves older posts to the archive blog app.
 
 ## Check GitHub Status
 
