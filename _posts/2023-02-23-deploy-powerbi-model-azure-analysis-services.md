@@ -77,43 +77,15 @@ Search for the current StackOverflow Survey dataset. Downloading the zip file co
 
 ## Install Visual Studio in an Azure VM
 
-Follow this post to [install Visual Studio in an Azure virtual machine](../install-visual-studio-azure-vm/)
+Follow this tutorial: [Use Chocolatey in Windows Powershell to Install Programs](../chocolatey-windows-powershell-install-programs/)
 
 ## Create an Azure Blob storage
 
 Since we are using the `CSV` file from the Stackoverflow dataset. We have to upload it to an Azure Blob.
 
-**Create a Storage Account**
+Follow my tutorial [Create an Azure Blob Storage and Container](../azure-blob-storage-container/)
 
-1. Go to the Azure portal
-2. Create resource
-3. Search for `Storage account`
-4. Click on `Create`
-5. Select resource group
-6. Add a storage account name
-7. Select Region closest to you
-8. Performance: `Standard`
-9. Redundancy: `Locally-redundant storage (LRS)`
-10. Create
-
-**Create a container**
-
-* Once the storage account is deployed
-* Create `Container`
-* Enter a name and OK
-* Upload the CSV dataset `survey_results_public.csv` to this container
-
-More about containers:
-* You cannot rename a container. You would have to create a new container and move the data from one to the other
-* You cannot directly add a folder inside a container. But you can enter a folder name while uploading the files.
-
-**Preview the CSV file from the container**
-
-* This file is too big to be previewed from the container. You get this error:
-  * Go to the Container
-  * Click on the CSV file
-  * On the right menu, click `Edit`
-  * Error `File size of 108.MB exceeds max supported file size of 2.1MB`
+Upload the CSV dataset `survey_results_public.csv` to the container.
 
 **Preview the CSV file from PowerBI**
 

@@ -18,6 +18,8 @@ As seen in my post [Building a data pipeline with Azure Data Factory](../data-pi
 
 The goal is to transform and join CSV files from a Storage Blob into a SQL Database.
 
+See [Creating Azure Resources](../azure/) to create many of the following:
+
 * Create a resource group
 * Create a security group
 * Create a Storage Blob account

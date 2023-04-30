@@ -9,7 +9,8 @@ comments: true
 These are estimates to calculate pricing for Azure Data Factory.
 
 Sources:
-* [Microsoft Azure Data Factory pricing](https://azure.microsoft.com/en-us/pricing/details/data-factory/data-pipeline/) * [Azure Data Factory pricing examples](https://learn.microsoft.com/en-us/azure/data-factory/pricing-concepts)
+* [Microsoft Azure Data Factory pricing](https://azure.microsoft.com/en-us/pricing/details/data-factory/data-pipeline/)
+* [Azure Data Factory pricing examples](https://learn.microsoft.com/en-us/azure/data-factory/pricing-concepts)
 * [Azure Data Factory copy activity performance](https://learn.microsoft.com/en-us/azure/data-factory/copy-activity-performance)
 * [Microsoft MVP Cathrine Wilhelmsen on Youtube about ADF pricing](https://www.youtube.com/watch?v=Fct1dcZMyWs)
 
@@ -83,7 +84,7 @@ Read/Write: entities like datasets, linked services, pipelines, IR, triggers. Mo
 - Standard: $100/mo (selected)
 - Compared to Professional Direct: $1,000/mo
 
-Total: PENDING
+Total: $224
 
 ## Azure Data Factory: Development Pricing
 
@@ -131,4 +132,4 @@ This assumes 8 work-hour/day and it is turned off during non-work hours.
 - Monitoring: $0.25 per 50,000 record retrieved = $0.25
 - Total: $0.75
 
-Total: PENDING
+Total: $100

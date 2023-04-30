@@ -134,27 +134,7 @@ Azure charges you when the VM is running. If you don't want to get charged:
 
 ## RDP on Linux
 
-If you have a Linux machine, install an RDP program to connect to the Windows VM.
-
-An option is `Remmina` as seen in the docs [here](https://remmina.org/how-to-install-remmina/).
-
-Install using snap
-
-    sudo snap install remmina
-
-Output (Feb 2023):
-
-    remmina v1.4.29 from Remmina Upstream Developers
-
-Open the program
-
-* Create an RDP connection
-* Enter a name like `azure-pbi`
-* Protocol select `RDP`
-* Server: Enter the `IP address` of the VM (see below)
-* Enter user and pwd
-* Resolution: `Use client resolution`
-* Click `Save and Connect`
+Follow my tutorial [RDP from Linux to an Azure VM](../rdp-from-linux-to-azure-vm/)
 
 ## Connect to the VM
 

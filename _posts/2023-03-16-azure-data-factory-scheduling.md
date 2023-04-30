@@ -143,8 +143,6 @@ For example if a new file `file.csv` is added to `scheduletrigger/input`:
 * `@triggerBody().fileName` has a value of `file.csv`
 * This value is mapped to the pipeline parameter `fileName` in `@pipeline().parameters.fileName`
 
-![Azure Data Factory Storage Event Trigger](/assets/images/azure-data-factory-storage-event-trigger.png)
-
 **Upload a file to the container**
 
 Test the trigger by uploading a `.csv` file to the blob container.

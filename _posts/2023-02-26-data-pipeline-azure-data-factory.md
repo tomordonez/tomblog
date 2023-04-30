@@ -33,49 +33,7 @@ This is a sample of one of the files with a sea of rows:
 
 ## Create an Azure Data factory
 
-**Create a GitHub repo**
-
-* Go to GitHub and create a repo.
-* Set to private. Initialize with a Readme
-
-**Create an Azure Data Factory**
-
-* In the Azure portal
-* Create a resource
-* Search for `data factory`
-* Select a `subscription` and create a `resource group`
-* Enter a `name`, a `region` and keep the `version` as `V2`
-* In `Git configuration` keep the default `Configure Git later`
-* Go to `Review and Create` and `Create`
-
-**Add the GitHub repo to Data Factory**
-
-In Data Factory, add the repo:
-
-* In the Manage interface, Source Control, `Git configuration`
-
-![Azure Data Factory Git Repository](/assets/images/azure-data-factory-git-repository.png)
-
-Select a GitHub repo:
-
-* Enter the `GitHub repository owner` (your GitHub username)
-* Authorize AzureDataFactory to access GitHub
-* Select the repository you created
-* Use the `Collaboration branch` as `main`
-* Leave the default `Publish branch` as `adf_publish`
-* Leave the default `Root folder`
-* Check `Import existing resources to repository`
-* Leave the default `Import resources into this branch` and select `main`
-* Go to the GitHub repo and refresh to see updates
-
-**Work in a branch**
-
-In Data Factory, top left, a `main branch` will show up.
-
-* On this drop down, click `New branch`
-* Enter a branch name
-* Do some work and click `Save all`. This will save the changes to the branch. And you can verify this in GitHub repo.
-* Create a PR from the Data Factory or from GitHub
+Follow my tutorial [Create an Azure Data Factory](../create-azure-data-factory/)
 
 ***
 
@@ -102,13 +60,13 @@ I created a container named `dbeapp` with two directories:
 * `inputCSV`: I uploaded `12` CSV files
 * `outputJoinedCSV`: I will use this after joining all files.
 
-How to create a storage account with a container. Example in [Azure Analysis Services](../deploy-powerbi-model-azure-analysis-services/)
+Follow my tutorial [Create an Azure Blob Storage and Container](../azure-blob-storage-container/)
 
 ***
 
 ## Connect to the SQL Server Database
 
-How to create an Azure SQL Server. Example in [PowerBI with Azure SQL Database](../powerbi-azure-sql-database/).
+See [Create an Azure SQL Database](../azure-sql-database/).
 
 After the SQL Server and Database were created.
 
@@ -195,33 +153,10 @@ There is a Youtube tutorial about some of the above workflow [here](https://www.
 
 ## Create Linked Services
 
-### Create a Linked Service for the Blob container
+Follow my tutorial to create an [Azure Data Factory Linked Service](../azure-data-factory-linked-service/)
 
-In Data Factory:
-
-* On the left menu, go to the `Manage` interface
-* Click on `Create linked service`
-* Search for `Azure Blob Storage`
-* Name `InputBlob`
-* Integration runtime, leave the default `AutoResolveIntegrationRuntime`
-* Authentication type `Account Key`
-* Account selection method `From Azure subscription`, select your subscription and Storage account name.
-* At the bottom click on `Test connection`
-* Click `Create`
-* `Save all` to commit to the repository
-
-![Azure Data Factory Linked Services InputBlob](/assets/images/azure-data-factory-linked-services-inputblob.png)
-
-### Create a Linked Service for SQL Server
-
-* On the left menu, go to the `Manage` interface
-* Click on `Create linked service`
-* Search for `Azure SQL Database`
-* Name: `OutputSQL`
-* Connect using `From Azure subscription` and select your subscription, server name, and database.
-* For `Authentication Type` select `SQL Authentication` (this has to be set when the server/db was created)
-* Then `Test connection` and `Create`
-* `Save all` to commit to the repository
+* For the Blob container. I named it `InputBlob`
+* For SQL Server. I named it `OutputSQL`
 
 ***
 
@@ -231,16 +166,12 @@ In Data Factory:
 
 We need to transform the CSV files from the Azure Blob, clean the data, and join them to a dataset. The input files are in the container (and directory) `dbeapp/inputCSV/`. The output container is `dbeapp/outputJoinedCSV/`.
 
-* Go back to the Author/Edit interface
-* Under `Datasets` click on `Add Dataset`
-* Select `Azure Blob Storage`
-* Select format `Delimited Text`
-* Enter a name for example `OutputDataflowCSV`
-* Select a linked service. The one you created above `InputBlob`
-* Enter the file path with a file name `dbeapp/outputJoinedCSV/dbe-joined.csv`
-* Select `First row as header`
-* Import schema `From connection`
-* `Save all` to commit to the repository
+See [Azure Data Factory Dataset](../azure-data-factory-dataset/)
+
+* Type: `Azure Blob Storage`
+* Name the dataset `OutputDataflowCSV`
+* Linked service `InputBlob`
+* File path `dbeapp/outputJoinedCSV/dbe-joined.csv`
 
 ![Azure Data Factory Datasets](/assets/images/azure-data-factory-datasets.png)
 
@@ -250,25 +181,21 @@ We will use this file `dbeapp/outputJoinedCSV/dbe-joined.csv` as the input datas
 
 ### Create a dataset for the PowerQuery result
 
-* In Data Factory, Author interface, click on Datasets
-* Create new dataset, Azure Blob Storage, DelimitedText
-* Rename to `OutputPowerQueryCSV`
-* Select `Linked Service` as `InputBlob`
-* Enter the file path with a file name `dbeapp/outputJoinedCSV/outputPowerQuery.csv`
-* Check `First row as header`
-* Import schema `From connection`
-* `Save all` to commit to the repository
+See [Azure Data Factory Dataset](../azure-data-factory-dataset/)
+
+* Type: `Azure Blob Storage`
+* Name the dataset `OutputPowerQueryCSV`
+* Linked service `InputBlob`
+* File path `dbeapp/outputJoinedCSV/outputPowerQuery.csv`
 
 ### Create a Dataset for the output SQL Server
 
-* Go to the Author/Edit interface
-* Create a dataset
-* Select `Azure SQL Database`
-* Enter a name. For my example `OutputSQLTable`
-* Select the linked service `OutputSQL`
+See [Azure Data Factory Dataset](../azure-data-factory-dataset/)
+
+* Type: `Azure SQL Database`
+* Name the dataset `OutputSQLTable`
+* Linked service `OutputSQL`
 * In `Table`, select the table that was created above, in my case `dbo.Directory`
-* Import schema, leave default `From connection/store`
-* `Save all` to commit to the repository
 
 ***
 
@@ -442,3 +369,5 @@ See more about triggers in [Azure Data Factory Scheduling](../azure-data-factory
 **Publish**
 
 Click `Publish` to save everything into the `adf_publish` branch. An internal branch used by Azure Data Factory.
+
+[![Ask me anything on Linkedin]({{ site.baseurl }}/assets/images/ama-linkedin-tomordonez.png)](https://www.linkedin.com/in/tomordonez/)

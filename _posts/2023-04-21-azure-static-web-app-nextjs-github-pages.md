@@ -8,10 +8,12 @@ comments: true
 
 I consolidated my two blogs into one using Jekyll in Azure using Azure Static Web Apps.
 
-I had two blogs:
+**Problems***
 
-* My main blog in GitHub pages but it became very slow to build.
-* A blog about Azure using Next.js in Azure. But after so many fixes, the website wouldn't rank on Google. After a lot of research I learned that this was an issue with the way Next.js loaded the website using JS. I gave up on this one.
+* My main blog was in GitHub pages but it became very slow to build.
+* My second blog about Azure using Next.js in Azure. The website wouldn't rank on Google after many fixes and waiting about 2 months. After a lot of research I learned that this was an issue with the way Next.js loaded the website using JS.
+
+After I joined the two blogs moving out of Next.js into Jekyll and submitting my sitemap to Google, I started ranking within a few days.
 
 ## Setup Jekyll
 
@@ -51,7 +53,7 @@ As seen in the MS docs [here](https://learn.microsoft.com/en-us/azure/static-web
 * Storage Free Plan: 250MB max per app
 * Storage Standard Plan: 500MB max per app
 
-I recently reached the Free plan limit. I got an error from GitHub Actions saying:
+I recently reached the Free plan limit. I got an error from GitHub CI/CD pipeline saying:
 
 	The content server has rejected the request with: BadRequest
 	Reason: The size of the app content was too large. The limit for this Static Web App is 262144000 bytes. For a higher app size limit, consider upgrading to the Standard plan.
@@ -68,7 +70,7 @@ Changing the plan:
 The Free plan has a limit for `Custom domains` to `2 per app`.
 
 * Create another app to store posts older than 2 years.
-* Manually do a cutoff of 2y or older posts and move them
+* Manually do a cutoff of 2y or older posts and move them.
 * Or write a program that automatically moves older posts to the archive blog app.
 
 ## Check GitHub Status
@@ -116,3 +118,5 @@ It is preferred to use an Azure DNS as seen in the docs [here](https://learn.mic
 	* Go to Static web app
 	* Go to custom domain
 	* Select `yourdomain.com` and click `Set default`
+
+[![Ask me anything on Linkedin]({{ site.baseurl }}/assets/images/ama-linkedin-tomordonez.png)](https://www.linkedin.com/in/tomordonez/)
