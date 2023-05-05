@@ -18,30 +18,29 @@ I am having some issues with `scp` to copy files from Linux to an Azure Windows 
 4. Create a File Share
 5. Enter a name for it, and select Tier `Transaction optimized`
 6. Click Create
+7. Then click on the created file share
 
-For reference. There is a note that says `To use the SMB protocol with this share, check if you can communicate over port 445`
+## Connect overlay
 
-## Get a PowerShell Script to Check Port 445
+After clicking on the created file share. An overlay appears with `Connect`.
 
 ![Azure Windows VM File Share Script](/assets/images/azure-windows-vm-file-share-connect-smb-script.png)
 
-Another note:
+The `Windows` tab says:
 
-`This script will check to see if this storage account is accessible via TCP port 445, which is the port SMB uses. If port 445 is available, your Azure file share will be persistently mounted.`
+    To connect to this Azure file share from Windows, choose from the following authentication methods and run the PowerShell commands from a normal (not elevated) PowerShell terminal:
 
-1. Open the file share
-2. Upload a file
-3. Go to `Browse` to see the uploaded file
-4. Top menu click `Connect`
-5. Windows tab
-6. Drive letter leave default `Z`
-7. Authentication method `Storage account key`
-8. Click `Show script`
-9. Copy the script
+Set `Authentication method` to `Storage account key`
 
 Warning note:
 
-`Connecting to a share using the storage account key is only appropriate for admin access. Mounting the Azure file share with the Active Directory identity of the user is preferred. `
+`Connecting to a share using the storage account key is only appropriate for admin access. Mounting the Azure file share with the Active Directory identity of the user is preferred.`
+
+Click on `Show script`. Copy the script.
+
+Below this button there is this note:
+
+    This script will check to see if this storage account is accessible via TCP port 445, which is the port SMB uses. If port 445 is available, your Azure file share will be persistently mounted. Your organization or internet service provider (ISP) may block port 445, however you may use Azure Point-to-Site (P2S) VPN, Azure Site-to-Site (S2S) VPN, or ExpressRoute to tunnel SMB traffic to your Azure file share over a different port.
 
 ## Run the script in the Azure VM
 
@@ -63,6 +62,7 @@ The output says `CMDKEY: Credential added successfully`
 2. Open File Explorer, then `This PC`, top menu `Computer` then `Map network drive`, select `Map network drive`
 3. Enter a Drive letter
 4. Enter folder using this format example `\\storageaccountname.file.core.windows.net\filesharename`
+   1. This string should be in the generated script above.
 5. Select both `Reconnect at sign-in` and `Connect using different credentials`
 6. For `email address` enter the storage account name
 7. For password enter a storage account key (from Azure Portal, Storage account)

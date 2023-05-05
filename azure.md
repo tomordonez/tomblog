@@ -47,7 +47,7 @@ comments: false
 
 [Azure Data Factory Dataset](../azure-data-factory-dataset/)
 
-[Azure Data Factory Self-Hosted Integration Runtime](../azure-data-factory-linked-service/)
+[Azure Data Factory Self-Hosted Integration Runtime](../azure-adf-self-hosted-integration-runtime/)
 
 [Azure Data Factory Scheduling](../azure-data-factory-scheduling/)
 
@@ -65,6 +65,8 @@ comments: false
 
 ## Power BI
 
+**Setup**
+
 [Set up PowerBI in an Azure VM](../setup-powerbi-in-azure-vm/)
 
 [PowerBI with Azure SQL Database](../powerbi-azure-sql-database/)
@@ -78,3 +80,17 @@ comments: false
 [Create a Power BI Service Individual Account](../create-powerbi-service-individual-account/)
 
 [Create a GitHub Dashboard with PowerBI Service](../powerbi-service-github-dashboard/)
+
+**Using Power BI**
+
+[Create a Hierarchy with Path and Lookupvalue](../powerbi-lookupvalue-hierarchy/)
+
+[Using DAX Studio to query the Power BI model or develop DAX measures](../dax-studio-powerbi/)
+
+***
+
+## Unsolved Mysteries
+
+[Cannot copy files between Azure VMs in the same Vnet](../azure-copy-files-between-vms/)
+
+[Power BI freezes on Windows Azure VM, RDP from Linux](../powerbi-freezes-azure-vm-windows/)

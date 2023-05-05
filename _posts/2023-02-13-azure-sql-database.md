@@ -55,7 +55,7 @@ Once the SQL Server is deployed. Select the size settings that best fits your ne
 * Subscription, resource group, and server are grayed out, since these are already pre-selected.
 * Enter a `Database name` like `AdventureWorksLT`
 * In `Want to use SQL elastic pool`, leave default `No`
-* In `Computer + Storage`
+* In `Compute + Storage`
   * Default selected was `General Purpose vCore` ($372.97 estimated cost/month)
   * Select `Configure`
     * Change `Service Tier` to `Basic` (5 DTUs, 2GB storage, $4.90/mo)

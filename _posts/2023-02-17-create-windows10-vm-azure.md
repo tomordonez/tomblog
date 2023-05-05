@@ -150,6 +150,17 @@ The Windows VM should start loading as if you just bought a new Windows laptop.
 
 Choose privacy settings for your device. Set everything to `No` and `Accept`. Networks popup select `No`
 
+## Use choco to install programs with Powershell
+
+See [Use Chocolatey in Windows Powershell to Install Programs](../chocolatey-windows-powershell-install-programs/)
+
+Optionally install:
+
+* SSMS
+* Notepad++
+* Azure Data Studio
+* DAX Studio
+
 ## Shut down the VM
 
 When done working with the VM.

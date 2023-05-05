@@ -20,6 +20,19 @@ This simulates an on-prem environment by creating two servers in the same networ
 
 ***
 
+## Considerations for using a self-hosted integration runtime
+
+More details in [this](https://learn.microsoft.com/en-us/azure/data-factory/create-self-hosted-integration-runtime?tabs=data-factory) Microsoft doc.
+
+* Don't install the IR on the same server that has the data source or that has a PBI gateway.
+* Ideally install the IR on a machine that is used for this purpose only
+* Ideally the IR machine is close to the data source machine to reduce connection time.
+* The IR can be shared with multiple data factories but can't be shared across Synapse workspaces
+* You can use a single IR for many on-premise data sources.
+* You can only install one IR instance on a single machine.
+
+***
+
 ## Create a resource group and network security group
 
 See [Azure Resource Group and Network Security Group](../azure-rg-nsg/)
@@ -51,6 +64,7 @@ I will refer to it as the `IR Server VM`. This will simulate another on-premise 
 
 * Connecting to the SQL Server Windows VM in the virtual network.
 * Installing the Self-Hosted Integration Runtime (IR) to connect to Azure Data Factory.
+  * 
 
 Follow my tutorial [Create an Azure Windows Server Datacenter VM](../azure-windows-server-datacenter-vm/)
 
@@ -178,6 +192,17 @@ In ADF confirm that the self-hosted is running
 ## Connect onprem SQL Server to Azure Data Factory
 
 Setup a Linked Service for onprem SQL Server. See [Azure Data Factory Linked Service](../azure-data-factory-linked-service/)
+
+## Copying to/from Parquet files
+
+You will get this error when copying SQL Server to Parquet files:
+
+    Java Runtime Environment cannot be found on the Self-hosted Integration Runtime machine. It is required for parsing or writing to Parquet/ORC files. Make sure Java Runtime Environment has been installed on the Self-hosted Integration Runtime machine.
+
+Follow [this](https://learn.microsoft.com/en-us/azure/data-factory/format-parquet#using-self-hosted-integration-runtime) MS doc. On the IR Server:
+
+* Install 64-bit JRE 8 from [here](https://www.java.com/en/download/manual.jsp) or
+* Install OpenJDK
 
 
 [![Ask me anything on Linkedin]({{ site.baseurl }}/assets/images/ama-linkedin-tomordonez.png)](https://www.linkedin.com/in/tomordonez/)

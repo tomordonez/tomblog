@@ -6,9 +6,9 @@ tags: [azure, azure static web app, nextjs]
 comments: true
 ---
 
-I consolidated my two blogs into one using Jekyll in Azure using Azure Static Web Apps.
+I consolidated my two blogs into one with Jekyll in Azure using Azure Static Web Apps.
 
-**Problems***
+**Problems**
 
 * My main blog was in GitHub pages but it became very slow to build.
 * My second blog about Azure using Next.js in Azure. The website wouldn't rank on Google after many fixes and waiting about 2 months. After a lot of research I learned that this was an issue with the way Next.js loaded the website using JS.

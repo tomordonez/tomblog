@@ -10,16 +10,17 @@ How to create an Azure Blob Storage and containers.
 
 ## Create a Storage Account
 
-1. Go to the Azure portal
-2. Create resource
-3. Search for `Storage account`
-4. Click on `Create`
-5. Select resource group
-6. Add a storage account name
-7. Select Region closest to you
-8. Performance: `Standard`
-9. Redundancy: `Locally-redundant storage (LRS)`
-10. Create
+* Go to the Azure portal
+* Create resource
+* Search for `Storage account`
+* Click on `Create`
+* Select resource group
+* Add a storage account name
+* Select the same region as the resource group
+* Performance: `Standard`
+* Redundancy: `Locally-redundant storage (LRS)`
+* Review other options to your needs
+* Click Next until `Create`
 
 ## Create a container
 

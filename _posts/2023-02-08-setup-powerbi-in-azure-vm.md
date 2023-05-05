@@ -51,6 +51,17 @@ Click the `Clustered Barchart`
 
 Add fields to X and Y axis to see the data.
 
+## Use choco to install other programs with Powershell
+
+See [Use Chocolatey in Windows Powershell to Install Programs](../chocolatey-windows-powershell-install-programs/)
+
+Optionally install:
+
+* SSMS
+* Notepad++
+* Azure Data Studio
+* DAX Studio
+
 ## Shut down the VM
 
 When done working on PowerBI.

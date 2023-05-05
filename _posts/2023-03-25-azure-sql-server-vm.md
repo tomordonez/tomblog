@@ -69,4 +69,14 @@ Go to the Adventure Works Microsoft website [here](https://learn.microsoft.com/e
 * Close SSMS
 * Close the RDP connection to the SQL Server
 
+## Use choco to install programs with Powershell
+
+See [Use Chocolatey in Windows Powershell to Install Programs](../chocolatey-windows-powershell-install-programs/)
+
+Optionally install:
+
+* SSMS
+* Notepad++
+* Azure Data Studio
+
 [![Ask me anything on Linkedin]({{ site.baseurl }}/assets/images/ama-linkedin-tomordonez.png)](https://www.linkedin.com/in/tomordonez/)

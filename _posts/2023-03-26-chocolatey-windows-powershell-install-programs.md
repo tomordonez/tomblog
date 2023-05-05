@@ -28,7 +28,9 @@ Create the file as seen in the Microsoft docs [here](https://learn.microsoft.com
 
 Install Chocolatey as seen in the official docs [here](https://docs.chocolatey.org/en-us/choco/setup).
 
-    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    Set-ExecutionPolicy Bypass -Scope Process -Force;
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 Even though, the docs don't fully explain exactly what this does. Here is a short summary form ChatGPT:
 
@@ -150,5 +152,13 @@ I still don't get why the name `Chocolatey`. It says it's a pun from NuGet. I wo
 ## Install SSMS
 
     choco install sql-server-management-studio --yes
+
+## Install Notepad++
+
+    choco install notepadplusplus
+
+## Install DAX Studio
+
+    choco install daxstudio
 
 [![Ask me anything on Linkedin]({{ site.baseurl }}/assets/images/ama-linkedin-tomordonez.png)](https://www.linkedin.com/in/tomordonez/)
