@@ -359,10 +359,27 @@ I got creative using 1 table to create a star schema because the table I copied 
 
 **Created DAX measures**
 
+Total Purchased by Marital Status
 
+    Total Purchase Married = 
+    CALCULATE(
+        SUM(FactPurchase[Purchase Amount]),
+        DimCustomerDetail[MaritalStatus] = "M"
+    )
 
+    Total Purchase Single = 
+    CALCULATE(
+        SUM(FactPurchase[Purchase Amount]),
+        DimCustomerDetail[MaritalStatus] = "S"
+    )
 
-* Create a line and stacked column chart to show `DateFirstPurchase`
-* Create metrics for married/single, yearly income, total children, house owner, numbercarsowned, commutedistance
+**PENDING**
+
+* Create a product table corresponding to each distinct Purchase Amount, add a picture link
+* Products can be of the lawn mowing category
+* The report has a dropdown to filter by product
+* The left bar shows the product picture, product name, and total sales card
+* The canvas shows sales measures based on dimCustomer and a line chart of sales over time
+  * Measures: marital status, income, house owner, commute distance
 
 [![Ask me anything on Linkedin]({{ site.baseurl }}/assets/images/ama-linkedin-tomordonez.png)](https://www.linkedin.com/in/tomordonez/)

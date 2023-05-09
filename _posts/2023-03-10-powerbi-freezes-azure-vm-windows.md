@@ -23,19 +23,17 @@ Steps to Reproduce:
 4. Move to another application outside of Remmina
 5. Go back to Remmina
 6. Power BI is frozen.
-7. The mouse works if you click on Windows time/date, if you click Microsoft Edge (if pinned on the bar) but cannot see the window, if you click on the Windows 11 logo or search (but it doesn't do anything). You can click on Powershell (if pinned on the bar) and it opens where you can kill the Power BI process.
+7. The mouse works: if you click on Windows time/date, if you click Microsoft Edge (if pinned on the bar) but you cannot see the window that opened, if you click on the Windows 11 logo or search (but they won't open). You can click on Powershell (if pinned on the bar) and it opens where you can kill the Power BI process.
 
 Things I tried:
 
 * I thought it was a Windows 11 problem. But I switched to Windows 10 and the issue remained.
 * I never had a problem with Remmina RDP from Linux to Windows VM. I thought the problem wasn't with Linux, the Windows VM, or Remmina.
-* The only thing I changed in my workflow was in Power BI setting `Pause visuals`
+* The only thing I changed in my workflow was in Power BI, enabling the setting `Pause visuals`
 
-**Possible root of the problem: Power BI pause visuals**
+**Possible root of the problem: Power BI - Pause Visuals**
 
-When using Power BI pause visuals while connected to RDP using Remmina.
-
-It seems the graphics freeze and it leaves you with two options:
+When using Power BI pause visuals while connected to RDP using Remmina. The graphics of the Windows VM freeze, even though you can move the mouse and click things, applications won't open or do anything. It leaves you with two options:
 
 * If you can open Powershell. Kill the Power BI process
 * Restart the VM

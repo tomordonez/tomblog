@@ -48,27 +48,6 @@ Select Active Directory authentication.
 
 Enter an account. Create new. It opens a link to login with your AD account.
 
-## Naming convention for database, table, column, schema
-
-As seen in [this](https://stackoverflow.com/a/7724/1434022) answer in StackOverflow. Follow the `AdventureWorks` database sample from Microsoft:
-
-* Database naming: lower case, no spaces/dashes/underscores
-* Tables, columns, schema: UpperCamelCase, singular
-* Views: Use the prefix lower `v` followed by ViewName like `vGetAllCategories`
-* Store Procedures: Use the prefix lower `usp` (user stored procedure) followed by a Name, like `uspLogError`
-* Primary key: `TableName + ID` such as CustomerID
-* Foreign Key: `TableName + ID` such as AccountID
-* Data types:
-  * `nvarchar` instead of `varchar`
-  * `datetime`
-* Specify `null` or `not null`
-* T-SQL:
-  * End all queries with semicolon
-  * Separate queries in batches using `GO`
-  * Use brackets for column [Name] if they are reserved keywords or use friendlier columns like ProductName
-  * If data type `nvarchar` insert values with `N` prefix like `N'Thor'`
-  * Use keyword `INTO` in `INSERT INTO` even though Microsoft docs show with and without.
-
 ## Generate ER diagram in Azure Data Studio
 
 In `Extensions` search for `Schema Visualization`. Follow the steps to install.

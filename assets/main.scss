@@ -3,14 +3,15 @@
 ---
 
 @import "minima";
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 .post-title {
-	line-height: 1.2;
+	line-height: 1.5;
 }
 
 body {
-	font-family: 'Poppins', sans-serif;
+	font-family: sans-serif;
+    line-height: 1.75;
 }
 
 .highlight {
@@ -73,6 +74,6 @@ details {
 
 @media screen and (max-width: 800px) {
 	.post-title {
-		line-height: 1.2;
+		line-height: 1.5;
 	}
 }

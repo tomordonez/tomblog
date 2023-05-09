@@ -23,7 +23,7 @@ email:
 description: >- # this means to ignore newlines until "baseurl:"
   A blog about data analytics, Azure, and software engineering.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://www.tomordonez.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://tomordonez.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: tomordonez
 github_username:  tomordonez
 permalink: /:title/
@@ -58,7 +58,7 @@ header_pages:
   - about.md
   - work.md
 
-paginate: 10
+paginate: 20
 
 author:
   name: Tom Ordonez

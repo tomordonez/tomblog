@@ -219,15 +219,24 @@ Microsoft has [this](https://learn.microsoft.com/en-us/power-bi/guidance/import-
 
 Star schemas, measurements
 
-* Use a DW at the source with data marts, star schemas, and measurement/summary tables
+* Use a DW at the source with data marts, star schemas, and measurement/summary/date tables
 * Use Power Query M to create star schema, transformations, and measurement tables
 * Use DAX to create tables and measurements
 
 Storage mode, importing data
 
 * Set Storage Mode to DirectQuery and a SQL script to load only what is required
+  * Large datasets, real time analytics
 * Set Storage Mode to Mixed Mode and a SQL script
 * Set Storage Mode to Import and a SQL script
 
+**Set Storage mode per table**
+
+* Go to `Model view`
+* Select a table
+* Go to `Advanced`
+* Select `Storage mode`
+  * You can switch from DirectQuery to Import
+  * You cannot switch from Import to DirectQuery
 
 [![Ask me anything on Linkedin]({{ site.baseurl }}/assets/images/ama-linkedin-tomordonez.png)](https://www.linkedin.com/in/tomordonez/)

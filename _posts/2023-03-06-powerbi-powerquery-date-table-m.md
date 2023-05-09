@@ -23,7 +23,7 @@ If you apply software design principles to Power BI like separation of concerns.
 
 As described in the Microsoft docs [here](https://learn.microsoft.com/en-us/power-bi/guidance/model-date-tables) you must have at least one `date table` in your model.
 
-In Power BI, in any of the views (report/data/model) you can right-click on the `Date` table and select `Mark as date table`. However, you will get an error if you don't meed this requirements:
+In Power BI, in any of the views (report/data/model) you can right-click on the `Date` table and select `Mark as date table`. However, you will get an error if you don't meet these requirements:
 
 * The date column cannot have missing dates
 * It must have unique values

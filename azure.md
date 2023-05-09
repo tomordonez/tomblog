@@ -89,6 +89,12 @@ comments: false
 
 ***
 
+## SQL/Database
+
+[Data Naming Conventions](../data-naming-conventions/)
+
+***
+
 ## Unsolved Mysteries
 
 [Cannot copy files between Azure VMs in the same Vnet](../azure-copy-files-between-vms/)
