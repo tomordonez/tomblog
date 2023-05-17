@@ -4,7 +4,6 @@ title: "Copy a table from on-premise server to Azure Data Factory"
 author: tom
 tags: [azure, azure data factory, on-premise server]
 comments: true
-published: false
 ---
 
 How to copy a table from an on-premise server to Azure Data Factory using a self-hosted integration runtime.
@@ -373,10 +372,9 @@ Total Purchased by Marital Status
         DimCustomerDetail[MaritalStatus] = "S"
     )
 
-**PENDING**
+**To be continued**
 
 * Create a product table corresponding to each distinct Purchase Amount, add a picture link
-* Products can be of the lawn mowing category
 * The report has a dropdown to filter by product
 * The left bar shows the product picture, product name, and total sales card
 * The canvas shows sales measures based on dimCustomer and a line chart of sales over time

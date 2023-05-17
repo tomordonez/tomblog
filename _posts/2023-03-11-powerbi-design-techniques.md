@@ -4,7 +4,6 @@ title: "Power BI Design Techniques"
 author: tom
 tags: [analytics, data visualization, powerbi]
 comments: true
-published: false
 ---
 
 Power BI design settings for metrics, bar charts, maps, and other visuals.
