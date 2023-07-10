@@ -87,6 +87,8 @@ comments: false
 
 [Using DAX Studio to query the Power BI model or develop DAX measures](../dax-studio-powerbi/)
 
+[Power BI Design Techniques](../powerbi-design-techniques/)
+
 ***
 
 ## SQL/Database
