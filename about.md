@@ -7,8 +7,8 @@ comments: false
 
 ## Profile
 
-* 5y+ experience in data visualization, project management, and business intelligence.
-* Python, SQL, JIRA, Git/GitHub, PowerBI, and Scrum. Pursuing Azure certifications.
+* Data visualization, data engineering, business intelligence.
+* Python, SQL (Oracle, SQL Server, Azure SQL, SnowSQL), Git/GitHub, PowerBI (M, DAX, PowerQuery), ETL/ELT, Data Warehouse (Snowflake), JIRA, Azure DevOps.
 * MS in Engineering Management
 * MS in Computer Science at Georgia Tech (in progress)
 
