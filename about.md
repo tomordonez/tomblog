@@ -5,8 +5,6 @@ permalink: "/about.html"
 comments: false
 ---
 
-## Profile
-
 * Data visualization, data engineering, business intelligence.
 * Python, SQL (Oracle, SQL Server, Azure SQL, SnowSQL), Git/GitHub, PowerBI (M, DAX, PowerQuery), ETL/ELT, Data Warehouse (Snowflake), JIRA, Azure DevOps.
 * MS in Engineering Management
