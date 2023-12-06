@@ -12,19 +12,19 @@ ChatGPT can be bad at basic math sometimes. For example, mixed fractions.
 
 On 12/4/23 I asked ChatGPT 4 about mixed fractions.
 
-## Question 1: How do you calculate mixed numbers 1 8/12 x 3 2/10?
+**Question 1: How do you calculate mixed numbers 1 8/12 x 3 2/10?**
 
 It answers to convert the mixed numbers to fractions...
 
 It says the result is 16/3
 
-## Question 2: Can you multiply the whole numbers first and then the fractions?
+**Question 2: Can you multiply the whole numbers first and then the fractions?**
 
 It answers "Yes, you can multiply the whole numbers first and then the fractions when dealing with mixed numbers..."
 
 It says the result is 47/15
 
-## Question 3: But you said the answer was 16/3 which is 5.33 and 47/15 is 3.13, which is the correct answer?
+**Question 3: But you said the answer was 16/3 which is 5.33 and 47/15 is 3.13, which is the correct answer?**
 
 This literally was the answer:
 
@@ -58,7 +58,7 @@ This literally was the answer:
 
 Somehow it thinks that the second answer `47/15` or `3.13` is the correct answer.
 
-## Correct answer
+**Correct answer**
 
 Mixed fractions
 
@@ -70,6 +70,6 @@ Reduce the fraction `3 2/10` equals `32/10`
 
 Now multiply
 
-    20/12 x 32/10
+    20/12 x 32/10 = 16/3
 
-Even if you use a calculator, the answer is `5.333`. ChatGPT4 thinks the answer is `3.13`
+The answer is `5.333`. ChatGPT4 thinks the answer is `3.13`
