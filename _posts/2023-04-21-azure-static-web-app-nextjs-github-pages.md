@@ -15,9 +15,16 @@ I consolidated my two blogs into one with Jekyll in Azure using Azure Static Web
 
 After I joined the two blogs moving out of Next.js into Jekyll and submitting my sitemap to Google, I started ranking within a few days.
 
-## Setup Jekyll
+## Summary
 
-As seen in [this](https://learn.microsoft.com/en-us/azure/static-web-apps/publish-jekyll) Microsoft doc about Jekyll in Azure Static Web Apps. My environment is Ubuntu.
+Publish Jekyll with Azure Static Web App: [Docs](https://learn.microsoft.com/en-us/azure/static-web-apps/publish-jekyll)
+
+* Create a local jekyll app
+* Create a Github repo and add remote to local app
+* In Azure create a Static Web App and link to Github repo. This creates a deploy YML for Github actions.
+* Push local jekyll app to Github. If pushed or merged to main, it will trigger the action, and deploy to Azure.
+
+## Install Jekyll
 
 	jekyll new app-name
 	cd app-name
@@ -26,12 +33,16 @@ As seen in [this](https://learn.microsoft.com/en-us/azure/static-web-apps/publis
 	git add -A
 	git commit -m "First commit"
 
-Create a blank GitHub repo without a readme and add the repo to git
+## Create Github repo
+
+Create a blank GitHub repo without a readme.
+
+Add the repo to local app
 
 	git remote add origin https://...repo-name
 	git push --set-upstream origin main
 
-## Deploy the app in Azure
+## Create Azure Static Web App
 
 Go to Azure
 
@@ -45,6 +56,39 @@ Go to Azure
 * API location empty
 * Output location `_site`
 * Review and Create
+
+Go to local app
+
+* If using main branch and it's not blocked for push, then push to main
+* If using a feature branch, then PR and merge to main
+
+Push to main or PR/merged to main will trigger the Github action.
+
+## Add Google Analytics
+
+In local Jekyll app.
+
+Edit `_config.yml` and add:
+
+    google_analytics: G-...your-analytics-code
+
+In the `_includes` folder, create the file `analytics.html`, and add your JS tracking code.
+
+In `_includes/head.html` add the environment logic, as shown in the Jekyll docs [here](https://jekyllrb.com/docs/configuration/environments/) enclosing the code with curly percentage braces
+
+    if jekyll.environment == 'production' and site.google_analytic
+    include analytics.html
+    endif
+
+In `.github\workflows` inside the deployment YML file, add the environment
+
+    - name: Build And Deploy
+        id: builddeploy
+        ...
+        with:
+        ...
+        env:
+            JEKYLL_ENV: production
 
 **Static Web App Quotas**
 
