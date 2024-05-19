@@ -6,32 +6,62 @@ tags: [azure, azure static web app, nextjs]
 comments: true
 ---
 
-I consolidated my two blogs into one with Jekyll in Azure using Azure Static Web Apps.
-
-**Problems**
-
-* My main blog was in GitHub pages but it became very slow to build.
-* My second blog about Azure using Next.js in Azure. The website wouldn't rank on Google after many fixes and waiting about 2 months. After a lot of research I learned that this was an issue with the way Next.js loaded the website using JS.
-
-After I joined the two blogs moving out of Next.js into Jekyll and submitting my sitemap to Google, I started ranking within a few days.
+I moved out of Next.JS because it would not load the Google Analytics script. This blog is back to Jekyll built through Github Actions to an Azure Static Web App.
 
 ## Summary
 
 Publish Jekyll with Azure Static Web App: [Docs](https://learn.microsoft.com/en-us/azure/static-web-apps/publish-jekyll)
 
+* Install Ruby on Windows
 * Create a local jekyll app
 * Create a Github repo and add remote to local app
 * In Azure create a Static Web App and link to Github repo. This creates a deploy YML for Github actions.
 * Push local jekyll app to Github. If pushed or merged to main, it will trigger the action, and deploy to Azure.
 
+## Install Ruby on Windows
+
+Jekyll on Windows: [Docs](https://jekyllrb.com/docs/installation/windows/)
+
+Install Ruby on Windows: [Docs](https://rubyinstaller.org/downloads/)
+
+After install and checking `ruby -v` in the command prompt. Add an environment variable in your Windows setting. Otherwise, VScode might not recognize Ruby.
+
+* In a command prompt `where ruby` and copy the path
+* In Windows search for Environment Variables
+* It opens System Properties. Click on Environment Variables
+* Under System Variables, find `Path` and edit
+* Add a new variable and paste the ruby path
+* Close/reopen VScode
+
 ## Install Jekyll
 
+Install Jekyll
+
+    gem install jekyll bundler
+
+Check that it installed
+
+    jekyll -v
+
+### If you need to create a new app
+
+    gem install jekyll bundler
 	jekyll new app-name
 	cd app-name
 	git init
 	git branch -m master main
 	git add -A
 	git commit -m "First commit"
+
+### If you cloned a repo and need to rebuild the app
+
+    cd cloned-app
+    gem install jekyll bundler
+    bundle install
+
+### Preview the app in your local machine
+
+    bundle exec jekyll serve
 
 ## Create Github repo
 
@@ -90,32 +120,30 @@ In `.github\workflows` inside the deployment YML file, add the environment
         env:
             JEKYLL_ENV: production
 
-**Static Web App Quotas**
+## Static Web App Quotas
 
 As seen in the MS docs [here](https://learn.microsoft.com/en-us/azure/static-web-apps/quotas). There are limits to the `Storage` in the `Free` and `Standard` plans:
 
 * Storage Free Plan: 250MB max per app
 * Storage Standard Plan: 500MB max per app
 
-I recently reached the Free plan limit. I got an error from GitHub CI/CD pipeline saying:
+If you reach the Free plan limit. You will get an error from GitHub CI/CD pipeline saying:
 
 	The content server has rejected the request with: BadRequest
 	Reason: The size of the app content was too large. The limit for this Static Web App is 262144000 bytes. For a higher app size limit, consider upgrading to the Standard plan.
 
-Changing the plan:
+**You can't see the size of the app in Azure**
+
+Using the Azure Static Web App service, you cannot see the Storage account or container anywhere in Azure. The only way to see the size is to build the website locally and seeing the size of the `_site` directory.
+
+    bundle exec jekyll serve
+
+### Changing the plan
 
 * Go to the Static Web App in Azure
 * Under `Settings/Hosting Plan`
 * Change from `Free` to `Standard`
 * It will increase the price to `9.00 USD/per app/month`
-
-**Tentative Strategy to move back to Free**
-
-The Free plan has a limit for `Custom domains` to `2 per app`.
-
-* Create another app to store posts older than 2 years.
-* Manually do a cutoff of 2y or older posts and move them.
-* Or write a program that automatically moves older posts to the archive blog app.
 
 ## Check GitHub Status
 
@@ -126,10 +154,6 @@ Go to the GitHub repo
 * Go back to Azure when workflows are completed
 * Go to the deployed resource
 * Open the URL of the deployment
-
-## Migrated content
-
-Magical skills using Linux to move my content to the new website.
 
 ## Create content workflow
 

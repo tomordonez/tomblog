@@ -55,7 +55,7 @@ plugins:
   - jekyll-tagging-related_posts
 
 header_pages:
-  - about.md
+  - contact.md
   - work.md
 
 paginate: 20
