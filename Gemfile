@@ -12,6 +12,7 @@ gem "jekyll", "~> 4.3.2"
 gem "minima", "~> 2.5"
 
 gem "kramdown", ">= 2.3.1"
+gem 'rexml', '~> 3.2.7'
 
 gem 'jekyll-tagging-related_posts'
 
